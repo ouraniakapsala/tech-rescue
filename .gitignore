@@ -1,0 +1,4 @@
+node_modules/
+Tech Rescue BE/.env
+Tech Rescue FE/dist/
+Tech Rescue FE/.angular/

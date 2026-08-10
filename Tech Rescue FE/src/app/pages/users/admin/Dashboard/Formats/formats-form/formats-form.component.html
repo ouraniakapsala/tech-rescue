@@ -1,0 +1,123 @@
+<form [formGroup]="formatForm" (ngSubmit)="onSubmit()" class="edit-layout-container">
+
+  <div class="main-content-area">
+    <div class="main-form-card">
+
+      <div class="card-header">
+        <div class="title-group">
+          <div class="icon-header">
+            <mat-icon>{{ editData ? 'edit' : 'add_box' }}</mat-icon>
+          </div>
+          <div>
+            <h2>{{ editData ? 'Επεξεργασία' : 'Νέο' }} Κουτί</h2>
+            <p class="subtitle">Ορισμός διαστάσεων και στοιχείων</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-content">
+
+        <h3 class="section-title">Βασικα Στοιχεια</h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Όνομα Κουτιού</mat-label>
+            <input matInput formControlName="name" placeholder="π.χ. Box XL">
+            <mat-icon matSuffix>inventory_2</mat-icon>
+            <mat-error *ngIf="formatForm.get('name')?.hasError('required')">Υποχρεωτικό πεδίο</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Περιγραφή</mat-label>
+            <textarea matInput formControlName="description" rows="3" placeholder="Λεπτομέρειες..."></textarea>
+            <mat-error *ngIf="formatForm.get('description')?.hasError('required')">Υποχρεωτικό πεδίο</mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-divider style="margin: 32px 0;"></mat-divider>
+
+        <h3 class="section-title">Διαστασεις (cm)</h3>
+
+        <div class="dimensions-grid" formGroupName="size">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Ύψος</mat-label>
+            <input matInput type="number" formControlName="height" placeholder="0">
+            <span matSuffix>cm</span>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Πλάτος</mat-label>
+            <input matInput type="number" formControlName="width" placeholder="0">
+            <span matSuffix>cm</span>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Βάθος</mat-label>
+            <input matInput type="number" formControlName="depth" placeholder="0">
+            <span matSuffix>cm</span>
+          </mat-form-field>
+
+        </div>
+
+
+      </div>
+      <div class="required-note">
+        <span class="asterisk">*</span> Τα πεδία με αστερίσκο είναι υποχρεωτικά
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sidebar-area">
+
+    <div class="control-card">
+      <div class="card-hero-header"
+           [class.bg-active]="formatForm.get('active')?.value"
+           [class.bg-inactive]="!formatForm.get('active')?.value">
+        <mat-icon class="hero-icon">
+          {{ formatForm.get('active')?.value ? 'check_circle' : 'do_not_disturb_on' }}
+        </mat-icon>
+      </div>
+
+      <div class="card-body-centered">
+        <h2 class="status-title">
+          {{ formatForm.get('active')?.value ? 'Ενεργό' : 'Ανενεργό' }}
+        </h2>
+        <p class="status-subtitle">Κατάσταση Διαθεσιμότητας</p>
+
+        <mat-divider style="width: 100%; margin: 24px 0;"></mat-divider>
+
+        <div class="toggle-section">
+          <span class="toggle-label">Ορατότητα</span>
+          <mat-slide-toggle color="primary" formControlName="active"></mat-slide-toggle>
+        </div>
+
+        <p class="helper-text">
+          {{ formatForm.get('active')?.value
+          ? 'Το κουτί είναι διαθέσιμο για επιλογή στις παραγγελίες.'
+          : 'Το κουτί δεν εμφανίζεται στις επιλογές.' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="actions-card">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!formatForm.valid || isLoading" class="full-btn">
+        <mat-icon style="margin-right: 8px;">save</mat-icon>
+        {{ editData ? 'Ενημέρωση' : 'Δημιουργία' }}
+      </button>
+
+      <button mat-button type="button" (click)="onCancel()" class="full-btn secondary">
+        Ακύρωση
+      </button>
+
+      <button mat-button type="button" (click)="resetForm()" class="reset-link">
+        Καθαρισμός Φόρμας
+      </button>
+    </div>
+
+  </div>
+
+</form>

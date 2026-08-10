@@ -1,0 +1,133 @@
+<div class="page-container">
+
+  <div class="document-panel">
+
+    <div class="panel-header">
+      <div class="title-group">
+        <div class="icon-header">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+        <div class="header-text">
+          <h2>ΛΕΠΤΟΜΕΡΕΙΕΣ ΔΩΡΕΑΣ</h2>
+          <p class="subtitle">Πλήρης προβολή στοιχείων και περιεχομένου</p>
+        </div>
+      </div>
+      <button mat-stroked-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> Επιστροφή
+      </button>
+    </div>
+
+    <div class="panel-content">
+      <div class="loading-spinner" *ngIf="isLoading">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Φόρτωση δεδομένων...</p>
+      </div>
+
+      <div *ngIf="!isLoading && fullDonationData" class="details-wrapper">
+
+        <div class="modern-section">
+          <h3 class="section-title">ΓΕΝΙΚΑ ΣΤΟΙΧΕΙΑ</h3>
+          <div class="data-blocks">
+            <div class="data-block">
+              <span class="label">ΠΑΡΑΓΩΓΟΣ</span>
+              <span class="value">
+                <div class="icon-circle primary-light"><mat-icon>business</mat-icon></div>
+                {{ fullDonationData.producer?.fullName || fullDonationData.fullName || 'Άγνωστος' }}
+              </span>
+            </div>
+            <div class="data-block">
+              <span class="label">ΚΑΤΑΣΤΑΣΗ</span>
+              <div class="value">
+                <span class="status-badge">{{ fullDonationData.status?.name || 'ΕΚΚΡΕΜΕΙ' }}</span>
+              </div>
+            </div>
+            <div class="data-block w-100" *ngIf="fullDonationData.description">
+              <span class="label">ΠΕΡΙΓΡΑΦΗ / ΣΗΜΕΙΩΣΕΙΣ</span>
+              <div class="description-box">
+                <mat-icon class="inline-icon text-muted">notes</mat-icon>
+                <span>{{ fullDonationData.description }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modern-section highlight-section">
+          <h3 class="section-title">ΠΕΡΙΕΧΟΜΕΝΟ ΔΩΡΕΑΣ</h3>
+
+          <div class="items-card-grid" *ngIf="fullDonationData.items && fullDonationData.items.length > 0">
+            <div class="item-card" *ngFor="let item of fullDonationData.items">
+
+              <div class="item-card-header">
+                <div class="item-icon"><mat-icon>category</mat-icon></div>
+                <div class="item-title">{{item.product?.name || 'Προϊόν' }} </div>
+              </div>
+<!--              <div class="item-title-note">Σημείωση: {{item.note}}</div> <br>-->
+
+              <div class="item-card-body">
+                <div class="item-stat">
+                  <span class="stat-label">ΠΟΣΟΤΗΤΑ</span>
+                  <span class="stat-value"><mat-icon>scale</mat-icon> {{ item.size }} gr.</span>
+                </div>
+                <div class="item-stat">
+                  <span class="stat-label">ΗΜ. ΛΗΞΗΣ</span>
+                  <span class="stat-value" [ngClass]="getExpiryStatus(item.expireData)">
+                    <mat-icon>event</mat-icon> {{ item.expireData | date:'dd/MM/yyyy' }}
+                  </span>
+                </div>
+                <div class="item-stat">
+                  <span class="stat-label">ΣΗΜΕΙΩΣΕΙΣ ΠΑΡΑΓΩΓΟΥ</span>
+                  <span class="stat-value"><mat-icon>notes</mat-icon> {{item.note}} </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="empty-state" *ngIf="!fullDonationData.items || fullDonationData.items.length === 0">
+            <div class="empty-icon"><mat-icon>remove_shopping_cart</mat-icon></div>
+            <p>Δεν βρέθηκαν συγκεκριμένα είδη προϊόντων.</p>
+          </div>
+        </div>
+
+        <div class="modern-section" *ngIf="fullDonationData.producerlocation">
+          <h3 class="section-title">ΤΟΠΟΘΕΣΙΑ ΚΑΙ ΕΠΙΚΟΙΝΩΝΙΑ</h3>
+          <div class="data-blocks">
+            <div class="data-block w-100">
+              <span class="label">ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΑΒΗΣ</span>
+              <span class="value highlight-text">
+                <div class="icon-circle secondary-light"><mat-icon>place</mat-icon></div>
+                {{ fullDonationData.producerlocation.address || '-' }}, {{ fullDonationData.producerlocation.city || '-' }}
+              </span>
+            </div>
+            <div class="data-block">
+              <span class="label">ΥΠΕΥΘΥΝΟΣ</span>
+              <span class="value">
+                <div class="icon-circle secondary-light"><mat-icon>person</mat-icon></div>
+                {{ fullDonationData.contactPerson || '-' }}
+              </span>
+            </div>
+            <div class="data-block">
+              <span class="label">ΤΗΛΕΦΩΝΟ</span>
+              <span class="value">
+                <div class="icon-circle secondary-light"><mat-icon>phone</mat-icon></div>
+                {{ fullDonationData.phone || '-' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel-actions-footer">
+      <button mat-raised-button color="primary"
+              [color]="isReserved ? '' : 'primary'"
+              [disabled]="isReserved"
+              (click)="acceptDonation()">
+        <mat-icon>{{ isReserved ? 'lock' : 'check_circle' }}</mat-icon>
+        {{ isReserved ? 'Δεσμευμένη Δωρεά' : 'Αποδοχή Δωρεάς' }}
+      </button>
+    </div>
+
+  </div>
+</div>

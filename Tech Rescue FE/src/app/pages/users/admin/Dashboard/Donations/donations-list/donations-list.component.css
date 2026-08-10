@@ -1,0 +1,106 @@
+/* Table Grid Structure - 3 Στήλες για το Admin (χωρίς actions) */
+.table-header, .table-row {
+  display: grid;
+  /* 1η στήλη (μεγάλη), 2η (μεσαία), 3η (κέντρο) */
+  grid-template-columns: 1fr 0.95fr 0.3fr;
+  align-items: center;
+  padding: 0 24px;
+  gap: 20px;
+}
+
+/* Ευθυγράμμιση Header */
+.table-header .col-status { text-align: center; }
+
+/* Items Column Styles */
+.col-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.item-summary strong {
+  font-size: 13px;
+  color: var(--text-main);
+  display: block;
+}
+
+.italic { font-style: italic; opacity: 0.7; }
+
+/* Status Pill Alignment */
+.col-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Loading Spinner Container */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+
+/* Responsive Fix for Table */
+@media (max-width: 900px) {
+  .table-header { display: none; }
+  .table-row {
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+    padding: 20px;
+  }
+  .col-status { justify-content: flex-start; align-items: flex-start; }
+}
+
+/* Στοιχεία λίστας */
+.row-name {
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  font-size: 14px;
+}
+
+.tiny-icon {
+  font-size: 13px !important;
+  width: 13px !important;
+  height: 13px !important;
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 4px;
+}
+
+.size-badge {
+  background-color: #f1f5f9;
+  color: #475569;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.assigned-badge {
+  font-size: 11px;
+  color: #10b981;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.assigned-badge mat-icon {
+  font-size: 12px !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Χρώματα για τα Status Pills */
+.status-pill {
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px;
+}
+.status-pill.transit { background-color: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
+.status-pill.ready { background-color: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+.status-pill.completed { background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+.status-pill.pending { background-color: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
+.status-pill.deleted { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; text-decoration: line-through; }

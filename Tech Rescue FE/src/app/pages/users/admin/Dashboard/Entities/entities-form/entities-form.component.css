@@ -1,0 +1,300 @@
+/* =========================
+   1. PAGE LAYOUT
+   ========================= */
+.edit-layout-container {
+  padding: 40px 30px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.main-form-card {
+  width: 100%;
+  max-width: 1100px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-top: 5px solid #3f51b5; /* Μπλε γραμμή στο πάνω μέρος */
+}
+
+/* =========================
+   2. HEADER
+   ========================= */
+.card-header {
+  padding: 24px 32px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-group { display: flex; align-items: center; gap: 16px; }
+
+.icon-header {
+  color: #3f51b5;
+  background-color: #eef2ff;
+  padding: 8px;
+  border-radius: 8px;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.card-header h2 { margin: 0; font-size: 20px; font-weight: 600; color: #1e293b; }
+.subtitle { margin: 2px 0 0; font-size: 13px; color: #64748b; }
+
+.close-btn { color: #94a3b8; transition: all 0.2s; }
+.close-btn:hover { background-color: #fee2e2; color: #ef4444; }
+
+/* =========================
+   3. TAB CONTENT
+   ========================= */
+::ng-deep .mat-mdc-tab-header {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tab-content {
+  padding: 40px;
+  min-height: 400px;
+}
+
+.centered-tab-content {
+  max-width: 800px; margin: 0 auto;
+}
+
+.section-title {
+  font-size: 14px;
+  color: #334155;
+  margin-bottom: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-left: 4px solid #3f51b5;
+  padding-left: 12px;
+}
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 16px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 16px; }
+.w-100 { width: 100%; }
+
+.info-alert {
+  margin-bottom: 24px; padding: 16px;
+  background-color: #eff6ff; color: #1e40af;
+  border-radius: 8px; display: flex; align-items: center; gap: 12px; font-size: 14px;
+  border: 1px solid #dbeafe;
+}
+
+/* =========================
+   4. TRANSPORTER BOX
+   ========================= */
+.transporter-box {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.toggle-header { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; }
+.icon-wrapper {
+  width: 44px; height: 44px; background: white; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid #e2e8f0;
+  color: #3f51b5;
+}
+.text-wrapper h3 { margin: 0; font-size: 16px; font-weight: 600; color: #334155; }
+.text-wrapper p { margin: 4px 0 0; font-size: 13px; color: #64748b; }
+
+.subsection-header { font-size: 14px; color: #334155; font-weight: 600; margin-bottom: 16px; }
+
+/* =========================
+   5. LOCATIONS CARDS
+   ========================= */
+.locations-header-row {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
+}
+
+.location-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.location-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+.loc-card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;
+}
+.loc-badge {
+  background: #d1fae5; color: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
+}
+.loc-toggles { display: flex; align-items: center; gap: 16px; }
+
+.empty-state-card {
+  text-align: center; color: #94a3b8; padding: 40px;
+  background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;
+}
+.empty-state-card mat-icon { font-size: 48px; width: 48px; height: 48px; opacity: 0.5; margin-bottom: 8px; }
+
+/* =========================
+   6. FOOTER & BUTTONS
+   ========================= */
+.form-actions-footer {
+  padding: 24px 32px;
+  border-top: 1px solid #f1f5f9;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  align-items: center;
+}
+
+button[mat-button] {
+  color: #64748b;
+  font-weight: 500;
+  height: 48px !important;
+  display: flex; align-items: center; gap: 8px;
+}
+button[mat-button]:hover { background-color: #f1f5f9; color: #334155; }
+
+button[mat-stroked-button] {
+  color: #3f51b5; border-color: #3f51b5; border-width: 1px; font-weight: 600; height: 48px !important; padding: 0 24px; border-radius: 8px;
+}
+button[mat-stroked-button]:hover { background-color: #eef2ff; }
+
+button[mat-raised-button] {
+  background-color: #3f51b5; color: #ffffff; font-weight: 600; height: 48px !important; padding: 0 32px; border-radius: 8px; box-shadow: 0 4px 6px rgba(63, 81, 181, 0.2);
+}
+button[mat-raised-button]:hover { background-color: #303f9f; box-shadow: 0 6px 12px rgba(63, 81, 181, 0.3); }
+button[mat-raised-button]:disabled { background-color: #e2e8f0; color: #94a3b8; box-shadow: none; }
+
+
+.location-save-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px dashed #e2e8f0; /* Μια διακριτική γραμμή διαχωρισμού */
+}
+
+.location-save-actions button {
+  height: 45px !important;
+  font-size: 14px;
+}
+
+
+/* =========================
+   7. ACCOUNT STATUS TOGGLE
+   ========================= */
+.status-control-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+/* Όταν είναι ενεργό, παίρνει μια πολύ διακριτική πράσινη απόχρωση στο background */
+.status-control-card.active-mode {
+  border-color: #bbf7d0;
+  background-color: #f0fdf4;
+}
+
+.status-control-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Η βούλα που δείχνει το status */
+.status-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #ef4444; /* Κόκκινο για Ανενεργό */
+  box-shadow: 0 0 0 4px #fee2e2;
+  transition: all 0.3s ease;
+}
+
+.status-dot.is-active {
+  background-color: #10b981; /* Πράσινο για Ενεργό */
+  box-shadow: 0 0 0 4px #d1fae5;
+}
+
+.status-texts h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.status-texts p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+
+/* =========================
+   DELETED SECTION DROPDOWN
+   ========================= */
+
+.deleted-section-wrapper {
+  margin-top: 40px;
+  border-top: 2px dashed #e2e8f0;
+  padding-top: 24px;
+}
+
+.deleted-section-header {
+  display: flex; justify-content: space-between; align-items: center;
+  background-color: #f8fafc; padding: 14px 20px; border-radius: 8px;
+  cursor: pointer; color: #64748b; font-weight: 600;
+  transition: all 0.2s ease; border: 1px solid #e2e8f0;
+}
+
+.deleted-section-header:hover { background-color: #f1f5f9; color: #334155; border-color: #cbd5e1; }
+
+.deleted-title { display: flex; align-items: center; gap: 10px; }
+.deleted-title mat-icon { color: #94a3b8; }
+
+.deleted-section-content { margin-top: 24px; animation: slideDown 0.3s ease-out forwards; }
+@keyframes slideDown { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
+
+/* Gray-out Εφέ για τη διεγραμμένη κάρτα */
+.location-card.is-deleted { background-color: #f8fafc; border: 1px dashed #cbd5e1; }
+.location-card.is-deleted .loc-fields-wrapper { opacity: 0.5; pointer-events: none; filter: grayscale(100%); }
+
+.deleted-tag { color: #ef4444 !important; background: #fef2f2 !important; border: 1px solid #fecaca; }
+
+.restore-btn { color: #10b981 !important; border-color: #10b981 !important; background: white; }
+.restore-btn:hover { background-color: #ecfdf5 !important; }
+
+
+.required-note {
+  text-align: left;
+  font-size: 13px;
+  color: #64748b;
+  /*margin-top: 20px; !* Αφήνουμε αέρα από το κάτω μέρος των Tabs *!*/
+  margin-bottom: 20px; /* Το φέρνουμε πιο κοντά στο Footer με τα κουμπιά */
+  padding: 0 24px; /* Ευθυγράμμιση με το εσωτερικό padding της κάρτας */
+}
+
+.required-note .asterisk {
+  color: #dc2626;
+  font-weight: bold;
+  font-size: 14px;
+}

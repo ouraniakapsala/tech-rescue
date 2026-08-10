@@ -1,0 +1,329 @@
+<div class="edit-layout-container">
+
+  <div class="main-form-card">
+
+    <div class="card-header">
+      <div class="title-group">
+        <div class="icon-header">
+          <mat-icon>{{ isEditMode ? 'edit' : 'business' }}</mat-icon>
+        </div>
+        <div>
+          <h2>{{ isEditMode ? 'Επεξεργασία Παραγωγού' : 'Νέος Παραγωγός' }}</h2>
+          <p class="subtitle">Διαχείριση εταιρικών στοιχείων και εγκαταστάσεων</p>
+        </div>
+      </div>
+      <button mat-icon-button class="close-btn" routerLink="/admin/producers">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <form [formGroup]="producerForm" (ngSubmit)="onSubmit()">
+
+      <mat-tab-group [(selectedIndex)]="selectedTabIndex" animationDuration="400ms" mat-stretch-tabs="true" mat-align-tabs="start">
+
+        <mat-tab label="Βασικά Στοιχεία">
+          <div class="tab-content">
+
+            <h3 class="section-title">Στοιχεια Εταιρειας</h3>
+            <div class="status-control-card" [class.active-mode]="producerForm.get('active')?.value">
+              <div class="status-control-info">
+                <div class="status-dot" [class.is-active]="producerForm.get('active')?.value"></div>
+                <div class="status-texts">
+                  <h4>Κατάσταση Λογαριασμού</h4>
+                  <p>{{ producerForm.get('active')?.value ? 'Ο χρήστης είναι Ενεργός και έχει πρόσβαση στο σύστημα.' : 'Ο χρήστης είναι Ανενεργός (η πρόσβαση έχει ανασταλεί).' }}</p>
+                </div>
+              </div>
+              <mat-slide-toggle formControlName="active" color="primary"></mat-slide-toggle>
+            </div>
+
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Επωνυμία (Full Name)</mat-label>
+                <input matInput formControlName="fullName" placeholder="π.χ. Athens Distribution">
+                <mat-icon matSuffix>badge</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Υπεύθυνος Επικοινωνίας</mat-label>
+                <input matInput formControlName="contactPerson">
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" autocomplete="off">
+                <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Τηλέφωνο</mat-label>
+                <input matInput formControlName="phone">
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="form-grid-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Πόλη</mat-label>
+                <input matInput formControlName="city">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Χώρα</mat-label>
+                <input matInput formControlName="country">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>T.K. (Zip)</mat-label>
+                <input matInput formControlName="zipCode">
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Περιγραφή</mat-label>
+              <textarea matInput formControlName="description" rows="4"></textarea>
+            </mat-form-field>
+
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Ασφάλεια" [disabled]="!isBasicInfoValid">
+          <div class="tab-content">
+
+            <div class="centered-tab-content">
+              <h3 class="section-title">Ασφάλεια Λογαριασμού</h3>
+
+              <div class="info-alert">
+                <mat-icon>security</mat-icon>
+                <span>Ορίστε έναν ισχυρό κωδικό πρόσβασης για την πρόσβαση του παραγωγού στην πλατφόρμα.</span>
+              </div>
+
+              <div class="form-grid">
+                <mat-form-field appearance="outline">
+                  <mat-label>Κωδικός Πρόσβασης</mat-label>
+                  <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" autocomplete="new-password">
+                  <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-hint>Τουλάχιστον 6 χαρακτήρες</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Επιβεβαίωση Κωδικού</mat-label>
+                  <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword" autocomplete="new-password">
+                  <mat-error *ngIf="producerForm.get('confirmPassword')?.hasError('mismatch')">Οι κωδικοί δεν ταιριάζουν</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Μεταφορέας" [disabled]="!(isBasicInfoValid && isSecurityValid)">
+          <div class="tab-content" formGroupName="transporter">
+
+            <div class="centered-tab-content">
+              <div class="transporter-box">
+                <div class="toggle-header">
+                  <div class="icon-wrapper"><mat-icon color="primary">local_shipping</mat-icon></div>
+                  <div class="text-wrapper">
+                    <h3>Ιδιόκτητος Μεταφορέας;</h3>
+                    <p>Ενεργοποιήστε αν ο παραγωγός έχει δικό του μέσο διανομής.</p>
+                  </div>
+                  <mat-slide-toggle formControlName="own" color="primary"></mat-slide-toggle>
+                </div>
+
+                <div class="transporter-fields" *ngIf="producerForm.get('transporter.own')?.value">
+                  <mat-divider style="margin: 20px 0;"></mat-divider>
+                  <h4 class="subsection-header">Στοιχεία Επικοινωνίας</h4>
+
+                  <div class="form-grid">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Όνομα Μεταφορικής / Οδηγού</mat-label>
+                      <input matInput formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Τηλέφωνο</mat-label>
+                      <input matInput formControlName="phone">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="info-alert" *ngIf="!producerForm.get('transporter.own')?.value" style="margin-top: 20px;">
+                  <mat-icon>info</mat-icon>
+                  <span>Θα χρησιμοποιηθεί εξωτερικός συνεργάτης για τις μεταφορές.</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Προϊόντα" [disabled]="!(isBasicInfoValid && isSecurityValid)">
+          <div class="tab-content">
+            <div class="centered-tab-content">
+
+              <div class="transporter-box" style="margin-bottom: 20px;">
+                <div class="toggle-header" style="justify-content: flex-start; gap: 15px;">
+                  <div class="icon-wrapper"><mat-icon color="primary">category</mat-icon></div>
+                  <div class="text-wrapper">
+                    <h3>Διαχείριση Προϊόντων</h3>
+                    <p>Επιλέξτε τα είδη με τα οποία σχετίζεται (παράγει/προσφέρει) ο χρήστης.</p>
+                  </div>
+                </div>
+              </div>
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Επιλογή Προϊόντων</mat-label>
+                <mat-select formControlName="products" multiple [compareWith]="compareProducts" panelClass="white-dropdown-panel">
+
+                  <mat-select-trigger>
+                    Έχουν επιλεγεί <strong>{{ producerForm.get('products')?.value?.length || 0 }}</strong> προϊόντα
+                  </mat-select-trigger>
+
+                  <mat-optgroup *ngFor="let group of groupedProducts" [label]="group.categoryName">
+                    <mat-option *ngFor="let item of group.products" [value]="item._id">
+                      {{ item.name }}
+                    </mat-option>
+                  </mat-optgroup>
+
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Τοποθεσίες" [disabled]="!(isBasicInfoValid && isSecurityValid)">
+          <div class="tab-content">
+
+            <div class="locations-header-row">
+              <h3 class="section-title" style="margin:0">Ενεργες Εγκαταστασεις ({{ activeLocationsCount }})</h3>
+              <button mat-stroked-button color="primary" type="button" (click)="addLocation()">
+                <mat-icon>add_location</mat-icon> Προσθήκη
+              </button>
+            </div>
+
+            <div formArrayName="location">
+
+              <ng-container *ngFor="let loc of locationControls; let i = index">
+                <div *ngIf="!loc.get('delete')?.value" [formGroupName]="i" class="location-card">
+
+                  <div class="loc-card-header">
+                    <div class="loc-badge">Ενεργή Τοποθεσία</div>
+                    <div class="loc-toggles">
+                      <mat-checkbox formControlName="main" color="accent">Κεντρικό</mat-checkbox>
+                      <mat-checkbox formControlName="active" color="primary">Ενεργό</mat-checkbox>
+                      <button mat-icon-button color="warn" type="button" (click)="removeLocation(i)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="loc-fields-wrapper">
+                    <div class="form-grid">
+                      <mat-form-field appearance="outline"><mat-label>Όνομα Εγκατάστασης</mat-label><input matInput formControlName="locationName"></mat-form-field>
+                      <mat-form-field appearance="outline"><mat-label>Διεύθυνση</mat-label><input matInput formControlName="address"></mat-form-field>
+                    </div>
+                    <div class="form-grid-3">
+                      <mat-form-field appearance="outline"><mat-label>Πόλη</mat-label><input matInput formControlName="city"></mat-form-field>
+                      <mat-form-field appearance="outline"><mat-label>T.K.</mat-label><input matInput formControlName="zipCode"></mat-form-field>
+                      <mat-form-field appearance="outline"><mat-label>Χώρα</mat-label><input matInput formControlName="country"></mat-form-field>
+                    </div>
+                    <div class="form-grid">
+                      <mat-form-field appearance="outline"><mat-label>Υπεύθυνος</mat-label><input matInput formControlName="contactName"></mat-form-field>
+                      <mat-form-field appearance="outline"><mat-label>Τηλέφωνο</mat-label><input matInput formControlName="contactPhone"></mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <div *ngIf="activeLocationsCount === 0" class="empty-state-card">
+                <mat-icon>location_off</mat-icon>
+                <p>Δεν υπάρχουν ενεργές τοποθεσίες.</p>
+              </div>
+
+              <div class="deleted-section-wrapper" *ngIf="deletedLocationsCount > 0">
+                <div class="deleted-section-header" (click)="toggleDeletedLocations()">
+                  <div class="deleted-title">
+                    <mat-icon>delete_outline</mat-icon>
+                    <span>Διαγραμμένες Εγκαταστάσεις ({{ deletedLocationsCount }})</span>
+                  </div>
+                  <mat-icon>{{ showDeletedLocations ? 'expand_less' : 'expand_more' }}</mat-icon>
+                </div>
+
+                <div class="deleted-section-content" *ngIf="showDeletedLocations">
+                  <ng-container *ngFor="let loc of locationControls; let i = index">
+                    <div *ngIf="loc.get('delete')?.value" [formGroupName]="i" class="location-card is-deleted">
+                      <div class="loc-card-header">
+                        <div class="loc-badge deleted-tag">Διαγραμμένη Τοποθεσία</div>
+                        <div class="loc-toggles">
+                          <button mat-stroked-button class="restore-btn" type="button" (click)="restoreLocation(i)">
+                            <mat-icon>restore_from_trash</mat-icon> Επαναφορά
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="loc-fields-wrapper">
+                        <div class="form-grid">
+                          <mat-form-field appearance="outline"><mat-label>Όνομα Εγκατάστασης</mat-label><input matInput formControlName="locationName"></mat-form-field>
+                          <mat-form-field appearance="outline"><mat-label>Διεύθυνση</mat-label><input matInput formControlName="address"></mat-form-field>
+                        </div>
+                        <div class="form-grid-3">
+                          <mat-form-field appearance="outline"><mat-label>Πόλη</mat-label><input matInput formControlName="city"></mat-form-field>
+                          <mat-form-field appearance="outline"><mat-label>T.K.</mat-label><input matInput formControlName="zipCode"></mat-form-field>
+                          <mat-form-field appearance="outline"><mat-label>Χώρα</mat-label><input matInput formControlName="country"></mat-form-field>
+                        </div>
+                        <div class="form-grid">
+                          <mat-form-field appearance="outline"><mat-label>Υπεύθυνος</mat-label><input matInput formControlName="contactName"></mat-form-field>
+                          <mat-form-field appearance="outline"><mat-label>Τηλέφωνο</mat-label><input matInput formControlName="contactPhone"></mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+
+      <div class="required-note">
+        <span class="asterisk">*</span> Τα πεδία με αστερίσκο είναι υποχρεωτικά
+      </div>
+
+      <div class="form-actions-footer">
+
+        <button *ngIf="selectedTabIndex > 0"
+                mat-button
+                type="button"
+                (click)="moveBackTab()"
+                style="margin-right: auto;">
+          <mat-icon iconPositionStart>arrow_back</mat-icon> Πίσω
+        </button>
+
+        <button *ngIf="selectedTabIndex <4 "
+                mat-stroked-button
+                color="primary"
+                type="button"
+                (click)="moveToNextTab()">
+          Επόμενο Βήμα <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+        </button>
+
+        <button *ngIf="selectedTabIndex >= 1"
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="producerForm.pending || !(isBasicInfoValid && isSecurityValid)">
+          <mat-icon style="margin-right: 8px;">save</mat-icon>
+          {{ isEditMode ? 'Αποθήκευση' : 'Δημιουργία Παραγωγού' }}
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</div>

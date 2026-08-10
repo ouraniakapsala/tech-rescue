@@ -1,0 +1,107 @@
+/* =========================
+   1. PAGE LAYOUT
+   ========================= */
+.edit-layout-container {
+  padding: 40px 30px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.main-form-card {
+  width: 100%;
+  max-width: 1100px; /* Λίγο μικρότερο από το 1100px του Admin, καθώς αυτή η φόρμα δεν έχει tabs */
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-top: 5px solid #3f51b5; /* Μπλε γραμμή στο πάνω μέρος */
+}
+
+/* =========================
+   2. HEADER
+   ========================= */
+.card-header {
+  padding: 24px 32px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-group { display: flex; align-items: center; gap: 16px; }
+
+.icon-header {
+  color: #3f51b5;
+  background-color: #eef2ff;
+  padding: 8px;
+  border-radius: 8px;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.card-header h2 { margin: 0; font-size: 20px; font-weight: 600; color: #1e293b; }
+.subtitle { margin: 2px 0 0; font-size: 13px; color: #64748b; }
+
+.close-btn { color: #94a3b8; transition: all 0.2s; }
+.close-btn:hover { background-color: #fee2e2; color: #ef4444; }
+
+/* =========================
+   3. TAB CONTENT & FORM GRIDS
+   ========================= */
+.tab-content {
+  padding: 40px;
+  min-height: 200px; /* Μικρότερο min-height αφού δεν έχουμε tabs */
+}
+
+.section-title {
+  font-size: 14px;
+  color: #334155;
+  margin-bottom: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-left: 4px solid #3f51b5;
+  padding-left: 12px;
+}
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 16px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 16px; }
+.w-100 { width: 100%; }
+
+.info-alert {
+  margin-bottom: 24px; padding: 16px;
+  background-color: #eff6ff; color: #1e40af;
+  border-radius: 8px; display: flex; align-items: center; gap: 12px; font-size: 14px;
+  border: 1px solid #dbeafe;
+}
+
+/* =========================
+   6. FOOTER & BUTTONS
+   ========================= */
+.form-actions-footer {
+  padding: 24px 32px;
+  border-top: 1px solid #f1f5f9;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  align-items: center;
+}
+
+button[mat-button] {
+  color: #64748b;
+  font-weight: 500;
+  height: 48px !important;
+  display: flex; align-items: center; gap: 8px;
+}
+button[mat-button]:hover { background-color: #f1f5f9; color: #334155; }
+
+button[mat-raised-button] {
+  background-color: #3f51b5; color: #ffffff; font-weight: 600; height: 48px !important; padding: 0 32px; border-radius: 8px; box-shadow: 0 4px 6px rgba(63, 81, 181, 0.2);
+}
+button[mat-raised-button]:hover { background-color: #303f9f; box-shadow: 0 6px 12px rgba(63, 81, 181, 0.3); }
+button[mat-raised-button]:disabled { background-color: #e2e8f0; color: #94a3b8; box-shadow: none; }

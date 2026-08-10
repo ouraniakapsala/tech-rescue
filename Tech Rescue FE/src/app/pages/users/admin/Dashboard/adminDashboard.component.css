@@ -1,0 +1,78 @@
+
+/* 1. Main Layout Container - Ensure full height */
+.sidenav-container {
+  height: 100vh; /* Takes full viewport height */
+  background-color: #f4f6f8; /* Background of the main area behind content */
+}
+
+/* 2. The Sidebar (Dark Theme) */
+.sidenav {
+  width: 280px;
+  background-color: #1e293b; /* Dark Slate Blue */
+  color: #e2e8f0; /* Light text */
+  border-right: none;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1); /* Subtle shadow separator */
+}
+
+/* 3. The Logo Area */
+.logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  background-color: #0f172a; /* Slightly darker than sidebar for contrast */
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo h3 {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* 4. Navigation Links */
+mat-nav-list a {
+  color: #94a3b8 !important; /* Muted text color for inactive items */
+  transition: all 0.3s ease;
+  margin: 8px 12px; /* Add some spacing around links */
+  border-radius: 8px; /* Rounded corners for links */
+}
+
+mat-nav-list span{
+  color: white;
+}
+
+mat-nav-list mat-icon {
+  margin-right: 12px;
+  color: #94a3b8;
+}
+
+/* Hover State */
+mat-nav-list a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff !important;
+}
+
+/* 5. Active Link State (When you are on that page) */
+.active-link {
+  background-color: #3b82f6 !important; /* Bright Blue Accent */
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.active-link mat-icon {
+  color: #ffffff !important;
+}
+
+/* 6. Main Content Area */
+.main-content {
+  background-color: #f1f5f9; /* Light Grey - makes white cards stand out */
+  min-height: 100vh;
+}
+
+.content {
+  padding: 30px; /* Breathing room for your forms */
+  max-width: 1600px;
+  margin: 0 auto;
+}

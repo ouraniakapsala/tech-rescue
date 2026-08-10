@@ -1,0 +1,50 @@
+<header class="main-header">
+
+  <div class="brand-section" (click)="goHome()">
+    <a routerLink="/" class="logo-link">
+      <img src="/assets/logos/CEI_BOOST_Logo.png" alt="App Logo" class="header-logo">
+    </a>
+  </div>
+
+  <nav class="nav-links"></nav>
+
+  <div class="user-section">
+
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-btn">
+      <div class="user-info-row">
+<!--        <span class="username">{{ userData?.firstName || '' }}</span>-->
+
+        <mat-icon class="avatar-icon">account_circle</mat-icon>
+
+        <mat-icon class="arrow-icon">expand_more</mat-icon>
+      </div>
+    </button>
+
+    <mat-menu #userMenu="matMenu" xPosition="before" class="custom-profile-menu">
+
+      <div class="menu-header">
+        <div class="menu-avatar">
+          <mat-icon style="font-size: 36px; height: 36px; width: 36px;">account_circle</mat-icon>
+        </div>
+        <div class="menu-name">
+          {{ userData?.firstName ? (userData?.firstName + ' ' + userData?.lastName) : userData?.email }}
+        </div>
+        <div class="menu-role-badge">{{ userData?.role || 'Guest' }}</div>
+      </div>
+
+      <button mat-menu-item [routerLink]="profileLink" class="myProfile-item">
+        <mat-icon color="primary">person</mat-icon>
+        <span>My Profile</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item (click)="onLogout()" class="logout-item">
+        <mat-icon color="warn">logout</mat-icon>
+        <span>Sign Out</span>
+      </button>
+
+    </mat-menu>
+  </div>
+
+</header>

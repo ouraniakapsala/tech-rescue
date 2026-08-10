@@ -1,0 +1,98 @@
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="edit-layout-container">
+
+  <div class="main-content-area">
+    <div class="main-form-card">
+
+      <div class="card-header">
+        <div class="title-group">
+          <div class="icon-header">
+            <mat-icon>{{ editData ? 'edit' : 'add_circle' }}</mat-icon>
+          </div>
+          <div>
+            <h2>Βασικές Πληροφορίες</h2>
+            <p class="subtitle">Συμπληρώστε τα στοιχεία της κατηγορίας</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-content">
+
+        <h3 class="section-title">Γενικα Στοιχεια</h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Όνομα Κατηγορίας</mat-label>
+            <input matInput formControlName="name" placeholder="π.χ. Λαχανικά">
+            <mat-error *ngIf="categoryForm.get('name')?.hasError('required')">
+              Το όνομα είναι υποχρεωτικό
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Περιγραφή</mat-label>
+            <textarea matInput formControlName="description" rows="8" placeholder="Περιγράψτε την κατηγορία..."></textarea>
+            <mat-hint align="end">{{ categoryForm.get('description')?.value?.length || 0 }} / 200</mat-hint>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="required-note">
+        <span class="asterisk">*</span> Τα πεδία με αστερίσκο είναι υποχρεωτικά
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="sidebar-area">
+
+    <div class="control-card">
+      <div class="card-hero-header"
+           [class.bg-active]="categoryForm.get('active')?.value"
+           [class.bg-inactive]="!categoryForm.get('active')?.value">
+        <mat-icon class="hero-icon">
+          {{ categoryForm.get('active')?.value ? 'visibility' : 'visibility_off' }}
+        </mat-icon>
+      </div>
+
+      <div class="card-body-centered">
+        <h2 class="status-title">
+          {{ categoryForm.get('active')?.value ? 'Ενεργή' : 'Ανενεργή' }}
+        </h2>
+        <p class="status-subtitle">Κατάσταση Κατηγορίας</p>
+
+        <mat-divider style="width: 100%; margin: 24px 0;"></mat-divider>
+
+        <div class="toggle-section">
+          <span class="toggle-label">Ορατότητα</span>
+          <mat-slide-toggle color="primary" formControlName="active"></mat-slide-toggle>
+        </div>
+
+        <p class="helper-text">
+          {{ categoryForm.get('active')?.value
+          ? 'Η κατηγορία είναι ορατή στο κατάστημα.'
+          : 'Η κατηγορία είναι κρυφή από τους πελάτες.' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="actions-card">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!categoryForm.valid" class="full-btn">
+        <mat-icon style="margin-right: 8px;">save</mat-icon>
+        {{ editData ? 'Ενημέρωση' : 'Δημιουργία' }}
+      </button>
+
+      <button mat-button type="button" (click)="onCancel()" class="full-btn secondary">
+        Ακύρωση
+      </button>
+
+      <button mat-button type="button" (click)="resetForm()" class="reset-link">
+        Καθαρισμός Φόρμας
+      </button>
+    </div>
+
+  </div>
+
+</form>

@@ -1,0 +1,236 @@
+/* ==========================================================================
+   DONATION CARDS - SUBTLE TINT & CLEAR CONTRAST UI
+   ========================================================================== */
+
+.donation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+/* --- Base Card --- */
+.donation-card {
+  background: #ffffff; /* Η βάση (Header/Footer) είναι λευκή */
+  border-radius: 20px;
+  /* Πιο καθαρή σκιά για να ξεχωρίζει από το background της σελίδας */
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  border: 1px solid #e2e8f0; /* Λίγο πιο ορατό περίγραμμα για να μην χάνεται */
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: 100%;
+}
+
+.cancel-btn {
+  border-color: #cbd5e1;
+  color: #475569;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.cancel-btn:hover {
+  border-color: #fecaca !important; /* Soft red border */
+  color: #dc2626 !important;       /* Clear red text */
+  background-color: #fef2f2 !important; /* Very light red background */
+}
+
+.donation-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08), 0 4px 8px rgba(15, 23, 42, 0.04);
+  border-color: #cbd5e1;
+}
+
+/* --- 1. Header (Καθαρό Λευκό) --- */
+.card-header-accent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.producer-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Avatar: Πιο "ζωντανό" παστέλ, όχι ξεθωριασμένο */
+.avatar {
+  width: 48px;
+  height: 48px;
+  background: #edf2ff; /* Πιο φωτεινό και καθαρό tint */
+  color: var(--primary, #3f51b5);
+  border-radius: 14px; /* Ελαφρώς στρογγυλεμένο τετράγωνο για δομή */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.meta h4 {
+  margin: 0 0 4px 0;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #1e293b; /* Πιο σκούρο και καθαρό για να μην είναι faded */
+}
+
+.location {
+  font-size: 13px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.location mat-icon { font-size: 15px; width: 15px; height: 15px; margin-right: 4px; color: #94a3b8; }
+.location .sm-icon { font-size: 13px; width: 13px; height: 13px; margin-left: 6px; margin-right: 4px; }
+.dot { margin: 0 6px; color: #cbd5e1; }
+
+.status-pill {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+/* Πιο "λαμπερά" (bright) χρώματα στα pills, όχι μουντά */
+.status-pill.available { background: #d1fae5; color: #047857; }
+.status-pill.taken { background: #ffedd5; color: #c2410c; }
+
+
+/* --- 2. Body / Content (ΤΟ ΜΥΣΤΙΚΟ: Απαλό Χρώμα Εδώ) --- */
+.card-content {
+  padding: 24px;
+  flex-grow: 1;
+  /* Ένα ΠΟΛΥ διακριτικό, όμορφο γαλάζιο/γκρι (off-white tinted) */
+  background: #f8f9fc;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 2a. Description (Λευκό πάνω στο διακριτικό φόντο!) */
+.description-section { margin-bottom: 0; }
+
+.description {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+  padding: 14px 16px;
+  background: #ffffff; /* Το καθαρό λευκό κάνει το κείμενο να "λάμπει" */
+  border-radius: 12px;
+  border-left: 3px solid #94a3b8; /* Λίγο πιο εμφανές border */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+  font-style: italic;
+}
+
+.description.empty {
+  background: transparent;
+  border-left: none;
+  box-shadow: none;
+  color: #94a3b8;
+  padding: 0;
+}
+
+/* 2b. Products Showcase (Λευκό Κουτί) */
+.products-showcase {
+  background: #ffffff; /* Ολόλευκο για να ξεχωρίζει από το #f8f9fc της κάρτας */
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+.showcase-header {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569; /* Πιο σκούρο για να διαβάζεται άψογα */
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.showcase-header span { display: flex; align-items: center; gap: 6px; }
+.showcase-header mat-icon { font-size: 16px; width: 16px; height: 16px; color: #94a3b8; }
+
+.items-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.item-tag {
+  background: #f8f9fc; /* Επιστροφή στο χρώμα της κάρτας */
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.item-tag .item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.item-tag .item-qty {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary, #3f51b5);
+  background: #e0e7ff; /* Λίγο πιο ζωντανό background για την ποσότητα */
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.more-tag {
+  background: transparent;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px dashed #cbd5e1;
+}
+
+.empty-items-text { font-size: 13px; color: #94a3b8; font-style: italic; }
+
+/* 2c. Logistics (Λευκό και Καθαρό) */
+.logistics-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #475569;
+  background: #ffffff; /* Λευκό για να βγαίνει μπροστά */
+  border: 1px solid #e2e8f0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-top: auto;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.01);
+}
+
+.logistics-row mat-icon { font-size: 18px; width: 18px; height: 18px; color: #94a3b8; }
+.logistics-row strong { color: #1e293b; font-weight: 600; }
+
+/* --- 3. Footer / Actions --- */
+.card-actions {
+  padding: 16px 24px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 12px;
+}
+
+.card-actions button {
+  font-weight: 600;
+  border-radius: 10px;
+  flex: 1;
+  padding: 6px 0;
+}

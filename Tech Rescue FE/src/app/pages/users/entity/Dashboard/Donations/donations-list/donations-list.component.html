@@ -1,0 +1,126 @@
+<div class="page-container">
+
+  <div class="header-row">
+    <h2>Λίστα Δωρεών </h2>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <div class="stat-info"><h3>{{ donations.length }}</h3><p>Συνολο</p></div>
+      <div class="stat-icon bg-blue"><mat-icon>inventory_2</mat-icon></div>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-info"><h3>{{ availableCount }}</h3><p>Διαθεσιμες</p></div>
+      <div class="stat-icon bg-green"><mat-icon>volunteer_activism</mat-icon></div>
+    </div>
+
+    <div class="stat-card orange">
+      <div class="stat-info"><h3>{{ takenCount }}</h3><p>Δεσμευμενες</p></div>
+      <div class="stat-icon bg-orange"><mat-icon>lock</mat-icon></div>
+    </div>
+
+    <div class="stat-card purple">
+      <div class="stat-info"><h3>{{ totalItems }}</h3><p>Συνολικα Ειδη</p></div>
+      <div class="stat-icon bg-purple"><mat-icon>format_list_bulleted</mat-icon></div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loader-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div class="donation-grid" *ngIf="!isLoading && donations.length > 0">
+    <div class="donation-card" *ngFor="let donation of donations; trackBy: trackByFn">
+
+      <div class="card-header-accent">
+        <div class="producer-info">
+          <div class="avatar">
+      <span *ngIf="donation?.producer?.fullName" class="avatar-initial">
+        {{ donation.producer.fullName.charAt(0).toUpperCase() }}
+      </span>
+            <mat-icon *ngIf="!donation?.producer?.fullName">business</mat-icon>
+          </div>
+          <div class="meta">
+            <h4>{{ donation?.producer?.fullName || 'Ανώνυμος Παραγωγός' }}</h4>
+            <span class="location">
+        <mat-icon>place</mat-icon> {{ donation?.producerlocation?.city || donation?.city || 'Ελλάδα' }}
+              <span class="dot">•</span>
+        <mat-icon class="sm-icon">calendar_today</mat-icon> {{ donation?.createdAt | date:'dd/MM/yyyy' }}
+      </span>
+          </div>
+        </div>
+
+        <span class="status-pill" [ngClass]="donation?.entity ? 'taken' : 'available'">
+    <span class="status-dot"></span>
+          {{ donation?.entity ? 'ΔΕΣΜΕΥΜΕΝΗ' : 'ΔΙΑΘΕΣΙΜΗ' }}
+  </span>
+      </div>
+
+      <div class="card-content">
+
+
+
+        <div class="products-showcase">
+          <div class="showcase-header">
+            <span><mat-icon>shopping_basket</mat-icon> ΠΕΡΙΕΧΟΜΕΝΟ ({{ donation?.items?.length || 0 }})</span>
+          </div>
+
+          <div class="items-list" *ngIf="donation?.items && donation.items.length > 0">
+            <div class="item-tag" *ngFor="let item of donation.items | slice:0:3">
+              <span class="item-name">{{ $any(item)?.product?.name || 'Είδος' }}</span>
+              <span class="item-qty">{{ $any(item)?.size || '1 τμχ' }}</span>
+            </div>
+            <div class="item-tag more-tag" *ngIf="donation.items.length > 3">
+              +{{ donation.items.length - 3 }} ακόμα
+            </div>
+          </div>
+
+          <div class="empty-items-text" *ngIf="!donation?.items || donation.items.length === 0">
+            Δεν έχουν δηλωθεί συγκεκριμένα προϊόντα.
+          </div>
+        </div>
+
+        <div class="logistics-row">
+          <mat-icon>local_shipping</mat-icon>
+          <span>Κατάσταση: <strong>{{ donation?.status?.name || 'Εκκρεμεί' }}</strong></span>
+        </div>
+
+<!--        <div class="description-section">-->
+<!--          <p class="description" [class.empty]="!donation?.description">-->
+<!--            <mat-icon class="quote-icon">format_quote</mat-icon>-->
+<!--            {{ (donation?.description) ? (donation.description | slice:0:100) + (donation.description.length > 100 ? '...' : '') : 'Δεν υπάρχουν επιπλέον σημειώσεις από τον παραγωγό.' }}-->
+<!--          </p>-->
+<!--        </div>-->
+
+      </div>
+
+      <div class="card-actions">
+        <button mat-stroked-button color="primary" (click)="openDetails(donation)">
+          <mat-icon>visibility</mat-icon> Προβολή
+        </button>
+
+        <button *ngIf="!donation?.entity" mat-raised-button color="primary" (click)="onAccept(donation?._id)">
+          <mat-icon>check_circle</mat-icon> Αποδοχή
+        </button>
+
+        <button *ngIf="donation?.entity && donation.entity === currentEntityId"
+                mat-stroked-button class="cancel-btn" color="warn" (click)="onCancel(donation?._id)" style="flex: 1;">
+          <mat-icon>cancel</mat-icon> Ακύρωση
+        </button>
+
+        <button *ngIf="donation?.entity && donation.entity !== currentEntityId"
+                mat-stroked-button disabled style="flex: 1;">
+          <mat-icon>lock</mat-icon> Δεσμευμένη
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && donations.length === 0">
+    <mat-icon>inventory</mat-icon>
+    <p>Δεν βρέθηκαν δωρεές.</p>
+  </div>
+
+</div>

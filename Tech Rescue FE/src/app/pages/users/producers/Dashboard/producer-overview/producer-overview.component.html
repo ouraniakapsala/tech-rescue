@@ -1,0 +1,94 @@
+<div class="page-container">
+
+  <div class="header-row">
+    <div class="title-group">
+      <h2>Επισκόπηση Παραγωγού 👋</h2>
+      <p class="subtitle">
+        Συνδεδεμένος ως: <strong>{{ producerName }}</strong> | Τελευταία δραστηριότητα: <strong>{{ today | date:'dd.MM.yy' }}</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <div class="stat-info"><h3>{{ stats.activeOrders }}</h3><p>ΕΝΕΡΓΕΣ ΠΑΡΑΓΓΕΛΙΕΣ</p></div>
+      <div class="stat-icon bg-blue"><mat-icon>shopping_cart</mat-icon></div>
+    </div>
+    <div class="stat-card orange">
+      <div class="stat-info"><h3>{{ stats.pendingDeliveries }}</h3><p>ΠΡΟΣ ΠΑΡΑΔΟΣΗ</p></div>
+      <div class="stat-icon bg-orange"><mat-icon>local_shipping</mat-icon></div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-info"><h3>{{ stats.totalStock }}</h3><p>ΣΥΝΟΛΙΚΑ ΤΕΜΑΧΙΑ</p></div>
+      <div class="stat-icon bg-green"><mat-icon>inventory_2</mat-icon></div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-info"><h3>{{ stats.activeLocations }}</h3><p>ΕΓΚΑΤΑΣΤΑΣΕΙΣ</p></div>
+      <div class="stat-icon bg-purple"><mat-icon>place</mat-icon></div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+
+    <div class="table-container main-content">
+      <div class="card-header">
+        <h3>Πρόσφατες Παραγγελίες</h3>
+        <button mat-button color="primary" routerLink="/producer/donations">Προβολή Όλων</button>
+      </div>
+
+      <div class="loading-spinner" *ngIf="isLoading">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <div class="activity-feed" *ngIf="!isLoading && recentActivity.length > 0">
+        <div class="feed-item clickable" *ngFor="let activity of recentActivity" [routerLink]="['/producer/donations/edit', activity._id]">
+          <div class="item-left">
+            <div class="item-icon" [ngClass]="activity.colorClass">
+              <mat-icon>{{ activity.icon }}</mat-icon>
+            </div>
+            <div class="item-text">
+              <span class="item-title">{{ activity.title }}</span>
+              <span class="item-desc">{{ activity.desc }}</span>
+            </div>
+          </div>
+          <span class="item-date">{{ activity.date }}</span>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="!isLoading && recentActivity.length === 0">
+        <p>Δεν υπάρχουν πρόσφατες παραγγελίες.</p>
+      </div>
+    </div>
+
+    <div class="table-container profile-sidebar">
+      <div class="profile-header">
+        <div class="avatar-circle">
+          <mat-icon>business</mat-icon>
+        </div>
+        <h4>{{ producerName }}</h4>
+        <span class="role-badge">Verified Producer</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="profile-details">
+        <div class="contact-row">
+          <mat-icon>email</mat-icon>
+          <span>{{ producerEmail }}</span>
+        </div>
+
+        <div class="info-note">
+          <mat-icon>info</mat-icon>
+          <p>Παρακαλούμε να ετοιμάζετε τις παραγγελίες προς παραλαβή εγκαίρως, για την αποφυγή καθυστερήσεων.</p>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button mat-stroked-button color="primary" routerLink="/producer/profile">
+          <mat-icon style="margin-right: 8px;">settings</mat-icon> Ρυθμίσεις Παραγωγού
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

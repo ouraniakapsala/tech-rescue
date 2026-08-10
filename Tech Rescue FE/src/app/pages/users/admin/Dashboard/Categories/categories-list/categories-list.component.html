@@ -1,0 +1,92 @@
+<div class="page-container">
+
+  <div class="header-row">
+    <h2>Κατηγορίες Προϊόντων</h2>
+    <button class="transform" mat-raised-button  color="primary" (click)="goToCreate()">
+      <mat-icon>add</mat-icon> Νέα Κατηγορία
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <div class="stat-info"><h3>{{ totalCount }}</h3><p>Συνολο</p></div>
+      <div class="stat-icon bg-blue"><mat-icon>inventory_2</mat-icon></div>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-info"><h3>{{ activeCount }}</h3><p>Ενεργες</p></div>
+      <div class="stat-icon bg-green"><mat-icon>check_circle</mat-icon></div>
+    </div>
+
+    <div class="stat-card orange">
+      <div class="stat-info"><h3>{{ inactiveCount }}</h3><p>Ανενεργες</p></div>
+      <div class="stat-icon bg-orange"><mat-icon>do_not_disturb_on</mat-icon></div>
+    </div>
+
+    <div class="stat-card red">
+      <div class="stat-info"><h3>{{ deletedCount }}</h3><p>Διαγραμμενες</p></div>
+      <div class="stat-icon bg-red"><mat-icon>delete</mat-icon></div>
+    </div>
+  </div>
+
+  <div class="table-container">
+
+    <div class="table-header">
+      <div class="col-main">ΟΝΟΜΑ & ΠΕΡΙΓΡΑΦΗ</div>
+      <div class="col-status">ΚΑΤΑΣΤΑΣΗ</div>
+      <div class="col-actions">ΕΝΕΡΓΕΙΕΣ</div>
+    </div>
+
+    <div class="table-body">
+      <div *ngFor="let c of paginatedCategories" class="table-row" [class.deleted-row]="c.delete">
+
+        <div class="col-main">
+          <div class="row-icon">
+            <mat-icon>{{ c.delete ? 'delete' : 'category' }}</mat-icon>
+          </div>
+          <div class="text-info">
+            <span class="row-name">{{ c.name }}</span>
+            <span class="row-desc" *ngIf="c.description">{{ c.description }}</span>
+          </div>
+        </div>
+
+        <div class="col-status">
+          <span class="status-pill" [ngClass]="c.delete ? 'deleted' : (c.active ? 'active' : 'inactive')">
+            {{ c.delete ? 'Διαγραμμενο' : (c.active ? 'Ενεργο' : 'Ανενεργο') }}
+          </span>
+        </div>
+
+        <div class="col-actions">
+          <ng-container *ngIf="!c.delete">
+            <button class="action-btn" (click)="goToEdit(c._id)" matTooltip="Επεξεργασία">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button class="action-btn delete" (click)="deleteCategory(c._id)" matTooltip="Διαγραφή">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </ng-container>
+
+          <button *ngIf="c.delete" class="action-btn" (click)="restoreCategory(c._id)" matTooltip="Επαναφορά">
+            <mat-icon style="color: var(--success)">restore_from_trash</mat-icon>
+          </button>
+        </div>
+
+      </div>
+      <div *ngIf="paginatedCategories.length === 0" class="empty-state">
+        <mat-icon style="font-size: 48px; width: 48px; height: 48px; margin-bottom: 10px;">inbox</mat-icon>
+        <p>Δεν βρέθηκαν κατηγορίες.</p>
+      </div>
+    </div>
+  </div>
+
+  <mat-paginator
+    class="custom-paginator"
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+    (page)="onPageChange($event)"
+    showFirstLastButtons>
+  </mat-paginator>
+
+</div>

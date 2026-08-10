@@ -1,0 +1,23 @@
+<ng-container *ngIf="isLoginPage()">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<div class="app-shell" *ngIf="!isLoginPage()">
+
+  <header class="top-bar">
+    <app-header></app-header>
+  </header>
+
+  <div class="main-body">
+    <aside class="side-nav-area">
+      <app-sidenav></app-sidenav>
+    </aside>
+
+    <main class="content-area">
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+
+</div>

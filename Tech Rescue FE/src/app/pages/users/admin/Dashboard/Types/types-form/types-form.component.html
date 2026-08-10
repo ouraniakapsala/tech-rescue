@@ -1,0 +1,110 @@
+<form [formGroup]="typeForm" (ngSubmit)="onSubmit()" class="edit-layout-container">
+
+  <div class="main-content-area">
+    <div class="main-form-card">
+
+      <div class="card-header">
+        <div class="title-group">
+          <div class="icon-header">
+            <mat-icon>{{ editData ? 'edit' : 'add_circle' }}</mat-icon>
+          </div>
+          <div>
+            <h2>{{ editData ? 'Επεξεργασία' : 'Νέο' }} Είδος</h2>
+            <p class="subtitle">Διαχείριση είδους προϊόντος</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-content">
+
+        <h3 class="section-title">Στοιχεια Ειδους</h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Όνομα Είδους</mat-label>
+            <input matInput formControlName="name" placeholder="π.χ. Μήλα Starkin">
+            <mat-icon matSuffix>label</mat-icon>
+            <mat-error *ngIf="typeForm.get('name')?.hasError('required')">
+              Το όνομα είναι υποχρεωτικό
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Κατηγορία</mat-label>
+            <mat-select formControlName="category" placeholder="Επιλέξτε κατηγορία">
+              <mat-option *ngFor="let cat of categories" [value]="cat._id">
+                {{ cat.name }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>category</mat-icon>
+            <mat-error *ngIf="typeForm.get('category')?.hasError('required')">
+              Η κατηγορία είναι υποχρεωτική
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Περιγραφή</mat-label>
+            <textarea matInput formControlName="description" rows="5" placeholder="Λεπτομέρειες για το είδος..."></textarea>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="sidebar-area">
+
+    <div class="control-card">
+      <div class="card-hero-header"
+           [class.bg-active]="typeForm.get('active')?.value"
+           [class.bg-inactive]="!typeForm.get('active')?.value">
+        <mat-icon class="hero-icon">
+          {{ typeForm.get('active')?.value ? 'layers' : 'layers_clear' }}
+        </mat-icon>
+      </div>
+
+      <div class="card-body-centered">
+        <h2 class="status-title">
+          {{ typeForm.get('active')?.value ? 'Ενεργό' : 'Ανενεργό' }}
+        </h2>
+        <p class="status-subtitle">Κατάσταση Είδους</p>
+
+        <mat-divider style="width: 100%; margin: 24px 0;"></mat-divider>
+
+        <div class="toggle-section">
+          <span class="toggle-label">Διαθεσιμότητα</span>
+          <mat-slide-toggle color="primary" formControlName="active"></mat-slide-toggle>
+        </div>
+
+        <p class="helper-text">
+          {{ typeForm.get('active')?.value
+          ? 'Το είδος είναι διαθέσιμο για συσχέτιση με προϊόντα.'
+          : 'Το είδος δεν μπορεί να επιλεγεί.' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="actions-card">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!typeForm.valid || isLoading" class="full-btn">
+        <mat-icon style="margin-right: 8px;">save</mat-icon>
+        {{ editData ? 'Ενημέρωση' : 'Δημιουργία' }}
+      </button>
+
+      <button mat-button type="button" (click)="onCancel()" class="full-btn secondary">
+        Ακύρωση
+      </button>
+
+      <button mat-button type="button" (click)="resetForm()" class="reset-link">
+        Καθαρισμός Φόρμας
+      </button>
+    </div>
+
+  </div>
+
+</form>

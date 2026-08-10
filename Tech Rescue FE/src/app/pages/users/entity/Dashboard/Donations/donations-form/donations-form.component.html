@@ -1,0 +1,95 @@
+<div class="edit-layout-container">
+  <div class="main-form-card">
+
+    <div class="card-header">
+      <div class="title-group">
+        <div class="icon-header">
+          <mat-icon>volunteer_activism</mat-icon>
+        </div>
+        <div>
+          <h2>Δέσμευση Δωρεάς</h2>
+          <p class="subtitle">Επιβεβαιώστε την τοποθεσία παραλαβής και τα στοιχεία επικοινωνίας</p>
+        </div>
+      </div>
+      <button mat-icon-button class="close-btn" (click)="onCancel()" type="button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <form [formGroup]="acceptForm" (ngSubmit)="onSubmit()">
+
+      <div class="tab-content" style="padding-top: 20px;">
+
+        <h3 class="section-title">Στοιχεια Τοποθεσιας & Επικοινωνιας</h3>
+
+        <div class="info-alert">
+          <mat-icon>info</mat-icon>
+          <span>Η ακριβής διεύθυνση είναι απαραίτητη για τη δημιουργία της διαδρομής μεταφοράς.</span>
+        </div>
+
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Όνομα Τοποθεσίας (πχ. Κεντρικά Γραφεία ) </mat-label>
+            <input matInput formControlName="locationName">
+            <mat-icon matSuffix>business</mat-icon>
+            <mat-error *ngIf="acceptForm.get('locationName')?.invalid">Το πεδίο είναι υποχρεωτικό</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Ονοματεπώνυμο</mat-label>
+            <input matInput formControlName="contactName">
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Τηλέφωνο Επικοινωνίας</mat-label>
+            <input matInput formControlName="contactPhone">
+            <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Διεύθυνση (Οδός & Αριθμός)</mat-label>
+            <input matInput formControlName="address">
+            <mat-icon matSuffix>place</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="form-grid-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Πόλη</mat-label>
+            <input matInput formControlName="city">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Τ.Κ. (Zip Code)</mat-label>
+            <input matInput formControlName="zipCode">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Χώρα</mat-label>
+            <input matInput formControlName="country" readonly>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Σημειώσεις / Επιπλέον οδηγίες παραλαβής (Προαιρετικό)</mat-label>
+          <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+
+      </div>
+
+      <div class="form-actions-footer">
+        <button mat-button type="button" (click)="onCancel()" style="margin-right: auto;">
+          <mat-icon iconPositionStart>arrow_back</mat-icon> Ακύρωση
+        </button>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="acceptForm.invalid || isLoading">
+          <mat-spinner diameter="20" *ngIf="isLoading" style="margin-right: 8px; display: inline-block; vertical-align: middle;"></mat-spinner>
+          <mat-icon *ngIf="!isLoading" style="margin-right: 8px;">check_circle</mat-icon>
+          Επιβεβαίωση & Δέσμευση
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+/* Table Grid Structure - Συγκεκριμένα για αυτή τη σελίδα */
+.table-header, .table-row {
+  display: grid;
+  /* 1η στήλη (μεγάλη), 2η (μεσαία), 3η (σταθερή 150px), 4η (σταθερή 100px) */
+  grid-template-columns: 0.5fr 0.3fr 0.6fr 100px;
+  align-items: center;
+  padding: 0 24px;
+  gap: 20px;
+}
+
+/* Ευθυγράμμιση Header */
+.table-header .col-status { text-align: center; }
+.table-header .col-actions { text-align: right; }
+
+/* Items Column Styles */
+.col-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.item-summary strong {
+  font-size: 13px;
+  color: var(--text-main);
+  display: block;
+}
+
+.italic { font-style: italic; opacity: 0.7; }
+
+/* Status Pill Alignment */
+.col-status {
+  display: flex;
+  justify-content: center;
+}
+
+/* Actions Alignment */
+.col-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+/* Loading Spinner Container */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+
+/* Responsive Fix for Table */
+@media (max-width: 900px) {
+  .table-header { display: none; } /* Κρύβουμε το header σε μικρές οθόνες */
+  .table-row {
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+    padding: 20px;
+  }
+  .col-status, .col-actions { justify-content: flex-start; }
+}
+
+
+/* Νέα στοιχεία λίστας */
+.row-name {
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  font-size: 14px;
+}
+
+.tiny-icon {
+  font-size: 13px !important;
+  width: 13px !important;
+  height: 13px !important;
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 4px;
+}
+
+.size-badge {
+  background-color: #f1f5f9;
+  color: #475569;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* Στήλη Κατάστασης (Νέα Badges) */
+.col-status {
+  display: flex;
+  flex-direction: column; /* Για να μπει το "Έχει ανατεθεί" από κάτω */
+  align-items: center;
+  gap: 6px;
+}
+
+.assigned-badge {
+  font-size: 11px;
+  color: #10b981;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.assigned-badge mat-icon {
+  font-size: 12px !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Χρώματα για τα Status Pills */
+.status-pill.transit { background-color: #fff7ed; color: #ea580c; }
+.status-pill.ready { background-color: #eff6ff; color: #2563eb; }
+.status-pill.completed { background-color: #ecfdf5; color: #059669; }
+.status-pill.pending { background-color: #f8fafc; color: #64748b; }
+.status-pill.deleted { background-color: #fef2f2; color: #dc2626; text-decoration: line-through; }
+
+
+/* Στυλ για τα κουμπιά ενεργειών (αν δεν τα έχεις ήδη) */
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  /*color: #64748b;*/
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover { background-color: #f1f5f9; color: #3b82f6; }
+.action-btn.delete:hover { background-color: #fef2f2; color: #ef4444; }
+.action-btn.restore:hover { background-color: #ecfdf5; color: #10b981; } /* Πράσινο για το Restore */

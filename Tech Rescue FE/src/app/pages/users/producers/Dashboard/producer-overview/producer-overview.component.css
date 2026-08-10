@@ -1,0 +1,203 @@
+/* ==========================================================================
+   DASHBOARD GRID LAYOUT
+   ========================================================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   MAIN CONTENT (ΛΙΣΤΑ)
+   ========================================================================== */
+.card-header {
+  padding: 20px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+}
+.card-header h3 { margin: 0; font-size: 16px; font-weight: 700; color: var(--text-main); }
+
+.loading-spinner { display: flex; justify-content: center; padding: 40px; }
+
+.activity-feed {
+  background: white;
+}
+
+.feed-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f8fafc;
+  transition: background 0.2s, transform 0.1s;
+}
+
+/* Προσθήκη για να δείχνει ότι κάνει κλικ */
+.feed-item.clickable {
+  cursor: pointer;
+}
+.feed-item.clickable:hover {
+  background-color: #f8fafc;
+}
+
+.feed-item:last-child { border-bottom: none; }
+
+.item-left { display: flex; align-items: center; gap: 16px; }
+
+.item-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #f1f5f9;
+  color: #3b82f6;
+}
+
+.item-icon mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Global utility colors (αν δεν τα έχεις στο global css σου, τα προσθέτουμε εδώ) */
+.item-icon.bg-green { background: #ecfdf5; color: var(--success, #10b981); }
+.item-icon.bg-orange { background: #fffbeb; color: var(--warning, #f59e0b); }
+.item-icon.bg-blue { background: #eff6ff; color: var(--primary, #3b82f6); }
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.item-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.item-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  background: #f8fafc;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.empty-state {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+.table-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 24px; border-bottom: 1px solid #f1f5f9; transition: background 0.2s;
+}
+.table-row:hover { background-color: #f8fafc; }
+.table-row:last-child { border-bottom: none; }
+
+.col-main { display: flex; align-items: center; gap: 16px; flex: 2; }
+.col-status { flex: 1; text-align: center; }
+.col-actions { flex: 1; display: flex; justify-content: flex-end; }
+
+.row-icon {
+  width: 40px; height: 40px; border-radius: 50%; background: #f0f9ff;
+  color: var(--info); display: flex; align-items: center; justify-content: center;
+}
+.text-info { display: flex; flex-direction: column; gap: 4px; }
+.row-name { font-size: 14px; font-weight: 600; color: var(--text-main); }
+.row-desc { font-size: 12px; color: var(--text-muted); }
+
+/* Status Pills */
+.status-pill {
+  padding: 6px 12px; border-radius: 20px; font-size: 11px;
+  font-weight: 700; text-transform: uppercase; display: inline-block;
+}
+.status-pill.active { background: #ecfdf5; color: var(--success); }
+.status-pill.inactive { background: #fffbeb; color: var(--warning); }
+
+.col-actions button { background: #f8fafc; border-radius: 50%; }
+
+.empty-placeholder { padding: 60px 0; text-align: center; color: var(--text-muted); }
+.placeholder-icon {
+  width: 56px; height: 56px; background: #f8fafc; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px; color: #cbd5e1;
+}
+.placeholder-icon mat-icon { font-size: 32px; width: 32px; height: 32px; }
+
+/* ==========================================================================
+   SIDEBAR WIDGET (ΠΡΟΦΙΛ)
+   ========================================================================== */
+.profile-sidebar {
+  padding: 40px 24px 24px;
+  text-align: center;
+  border-top: 4px solid var(--primary); /* Η χρωματιστή γραμμή! */
+}
+
+.profile-header { text-align: center; margin-bottom: 20px; }
+
+.avatar-circle {
+  width: 72px; height: 72px;
+  background: #eff6ff; /* Απαλό μπλε για τον παραγωγό */
+  color: var(--primary);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px auto; box-shadow: 0 0 0 4px #fff, var(--shadow);
+}
+.avatar-circle mat-icon { font-size: 36px; width: 36px; height: 36px; }
+
+.profile-header h4 { margin: 0 0 4px; font-size: 17px; font-weight: 700; color: var(--text-main); }
+.role-badge {
+  background: #ecfdf5; color: #10b981; padding: 4px 12px;
+  border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+}
+
+mat-divider { margin: 24px 0; border-top-color: #f1f5f9; }
+
+.profile-details {
+  background: #f8fafc; border-radius: var(--radius-sm); padding: 16px;
+  text-align: left; border: 1px dashed #e2e8f0; margin-bottom: 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.contact-row { display: flex; align-items: center; gap: 12px; color: var(--text-muted); font-size: 14px; font-weight: 600; }
+.contact-row mat-icon { font-size: 20px; width: 20px; height: 20px; }
+
+.info-note {
+  display: flex;
+  align-items: flex-start; /* Κρατάει το εικονίδιο ψηλά στην πρώτη γραμμή του κειμένου */
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.info-note mat-icon {
+  flex-shrink: 0; /* SOS: Αποτρέπει το κείμενο από το να "ζουλήξει" ή να καβαλήσει το εικονίδιο */
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--info);
+  margin-top: 1px; /* Μια μικρή διόρθωση για να είναι στην ίδια ευθεία με τα γράμματα */
+}
+
+.info-note p {
+  margin: 0;
+}
+
+.profile-actions { text-align: center; margin-top: 20px; }
+.profile-actions button { width: 100%; }

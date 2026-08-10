@@ -1,0 +1,94 @@
+<div class="page-container">
+
+  <div class="header-row">
+    <div class="title-group">
+      <h2>Επισκόπηση Διαχειριστή 🛡️</h2>
+      <p class="subtitle">
+        Συνδεδεμένος ως: <strong>{{ adminName }}</strong> | Τελευταία δραστηριότητα: <strong>{{ today | date:'dd.MM.yy' }}</strong>
+      </p>
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" routerLink="/admin/producers">Διαχείριση Χρηστών</button>
+<!--      <button mat-raised-button color="primary" routerLink="/admin/donations/create">Νέα Δωρεά</button>-->
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <div class="stat-info"><h3>{{ producersCount }}</h3><p>ΠΑΡΑΓΩΓΟΙ</p></div>
+      <div class="stat-icon bg-blue"><mat-icon>business</mat-icon></div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-info"><h3>{{ entitiesCount }}</h3><p>ΦΟΡΕΙΣ / MKO</p></div>
+      <div class="stat-icon bg-green"><mat-icon>storefront</mat-icon></div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-info"><h3>{{ adminsCount }}</h3><p>ΔΙΑΧΕΙΡΙΣΤΕΣ</p></div>
+      <div class="stat-icon bg-purple"><mat-icon>admin_panel_settings</mat-icon></div>
+    </div>
+    <div class="stat-card orange">
+      <div class="stat-info"><h3>{{ pendingCount }}</h3><p>ΕΚΚΡΕΜΟΤΗΤΕΣ</p></div>
+      <div class="stat-icon bg-orange"><mat-icon>notification_important</mat-icon></div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+
+    <div class="table-container">
+      <div class="card-header">
+        <h3>Πρόσφατη Δραστηριότητα</h3>
+        <button mat-button color="primary" routerLink="/admin/donations">Προβολή Όλων</button>
+      </div>
+
+      <div class="activity-feed">
+        <div class="feed-item" *ngFor="let activity of recentActivity">
+          <div class="item-left">
+            <div class="item-icon" [ngClass]="activity.colorClass">
+              <mat-icon>{{ activity.icon }}</mat-icon>
+            </div>
+            <div class="item-text">
+              <span class="item-title">{{ activity.title }}</span>
+              <span class="item-desc">{{ activity.desc }}</span>
+            </div>
+          </div>
+          <span class="item-date">{{ activity.date }}</span>
+        </div>
+
+        <div *ngIf="recentActivity.length === 0" class="empty-state">
+          <p>Δεν υπάρχει πρόσφατη δραστηριότητα.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container profile-sidebar">
+      <div class="profile-header">
+        <div class="avatar-circle">
+          <mat-icon>admin_panel_settings</mat-icon>
+        </div>
+        <h4>{{ adminName }}</h4>
+        <span class="role-badge">Administrator</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="profile-details">
+        <div class="contact-row">
+          <mat-icon>security</mat-icon>
+          <span>Επίπεδο Πρόσβασης: Πλήρες</span>
+        </div>
+
+        <div class="info-note">
+          <mat-icon>info</mat-icon>
+          <p>Έχετε πλήρη δικαιώματα διαχείρισης σε χρήστες, δωρεές και στατιστικά του συστήματος.</p>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button mat-stroked-button color="primary" routerLink="/admin/profile">
+          <mat-icon style="margin-right: 8px;">settings</mat-icon> Ρυθμίσεις Προφίλ
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,250 @@
+<div class="edit-layout-container">
+
+  <div class="main-form-card">
+
+    <div class="card-header">
+      <div class="title-group">
+        <div class="icon-header">
+          <mat-icon>{{ isEditMode ? 'edit' : 'redeem' }}</mat-icon>
+        </div>
+        <div>
+          <h2>{{ isEditMode ? 'Επεξεργασία Δωρεάς' : 'Νέα Δωρεά' }}</h2>
+          <p class="subtitle">Διαχείριση στοιχείων, προϊόντων και μεταφορικών</p>
+        </div>
+      </div>
+      <button mat-icon-button class="close-btn" routerLink="/producer/donations">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <form [formGroup]="donationForm" (ngSubmit)="onSubmit()" *ngIf="donationForm">
+
+      <mat-tab-group [(selectedIndex)]="selectedTabIndex" animationDuration="400ms" mat-stretch-tabs="true" mat-align-tabs="center">
+
+        <mat-tab label="Βασικά Στοιχεία">
+          <div class="tab-content">
+
+            <h3 class="section-title">Στοιχεια Δωρητη</h3>
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Όνομα Παραγωγού/Δωρητή</mat-label>
+                <input matInput formControlName="fullName">
+                <mat-icon matSuffix>badge</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Υπεύθυνος Επικοινωνίας</mat-label>
+                <input matInput formControlName="contactPerson">
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Τηλέφωνο Επικοινωνίας</mat-label>
+                <input matInput formControlName="phone">
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Πόλη</mat-label>
+                <input matInput formControlName="city">
+              </mat-form-field>
+            </div>
+
+            <div class="form-grid">
+
+              <mat-form-field appearance="outline">
+                <mat-label>Χώρα</mat-label>
+                <input matInput formControlName="country">
+              </mat-form-field>
+            </div>
+
+            <mat-divider class="my-3"></mat-divider>
+
+            <h3 class="section-title">Κατασταση & Πληροφοριες</h3>
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Κατάσταση Δωρεάς (Status)</mat-label>
+                <mat-select formControlName="status">
+                  <mat-option *ngFor="let s of availableStatuses" [value]="s._id">
+                    {{ s.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Περιγραφή / Σημειώσεις</mat-label>
+                <input matInput formControlName="description">
+              </mat-form-field>
+            </div>
+
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Είδη Δωρεάς" [disabled]="!isBasicInfoValid">
+          <div class="tab-content">
+            <div class="locations-header-row">
+              <h3 class="section-title" style="margin:0">Λιστα Ειδων Δωρεας</h3>
+              <button mat-stroked-button color="primary" type="button" (click)="addItem()">
+                <mat-icon>add_shopping_cart</mat-icon> Προσθήκη Είδους
+              </button>
+            </div>
+
+            <div formArrayName="items">
+              <div *ngFor="let item of itemsControls; let i = index" [formGroupName]="i" class="location-card">
+
+                <div class="loc-card-header">
+                  <div class="loc-badge">Προϊόν #{{ i + 1 }}</div>
+                  <div class="loc-toggles">
+                    <button mat-icon-button color="warn" type="button" (click)="removeItem(i)" matTooltip="Αφαίρεση Είδους">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-grid-3">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Επιλογή Προϊόντος</mat-label>
+                    <mat-select formControlName="product">
+                      <mat-optgroup *ngFor="let group of groupedProducts" [label]="group.categoryName">
+                        <mat-option *ngFor="let p of group.products" [value]="p._id">
+                          {{ p.name }}
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Συσκευασία (Box)</mat-label>
+                    <mat-select formControlName="box">
+                      <mat-option *ngFor="let b of availableBoxes" [value]="b._id">
+                        {{ b.name }}
+                        <span *ngIf="b.size">
+                          ({{ b.size.width }}x{{ b.size.height }}x{{ b.size.depth }})
+                        </span>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Ποσότητα (π.χ. 500gr)</mat-label>
+                    <input matInput formControlName="size">
+                  </mat-form-field>
+                </div>
+
+                <div class="form-grid">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Ημερομηνία Λήξης</mat-label>
+                    <input matInput type="date" formControlName="expireData">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Σύντομη σημείωση Παραγώγου για το Προϊόν</mat-label>
+                    <input matInput formControlName="note">
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div *ngIf="itemsControls.length === 0" class="empty-state-card">
+                <mat-icon>production_quantity_limits</mat-icon>
+                <p>Δεν έχουν προστεθεί προϊόντα. Πατήστε "Προσθήκη Είδους".</p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Τοποθεσία Παραλαβής" [disabled]="!isItemsValid">
+          <div class="tab-content" formGroupName="producerlocation">
+            <h3 class="section-title">Διευθυνση Εγκαταστασης / Αποθηκης</h3>
+
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Όνομα Τοποθεσίας (π.χ. Κεντρική Αποθήκη)</mat-label>
+                <input matInput formControlName="locationName">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Διεύθυνση</mat-label>
+                <input matInput formControlName="address">
+              </mat-form-field>
+            </div>
+
+            <div class="form-grid-3">
+              <mat-form-field appearance="outline"><mat-label>Πόλη</mat-label><input matInput formControlName="city"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>T.K.</mat-label><input matInput formControlName="zipCode"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Χώρα</mat-label><input matInput formControlName="country"></mat-form-field>
+            </div>
+
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Υπεύθυνος Τοποθεσίας</mat-label>
+                <input matInput formControlName="contactName">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Τηλέφωνο Τοποθεσίας</mat-label>
+                <input matInput formControlName="contactPhone">
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Μεταφορέας" [disabled]="!isItemsValid">
+          <div class="tab-content" formGroupName="transporter">
+            <div class="centered-tab-content">
+              <div class="transporter-box">
+                <div class="toggle-header">
+                  <div class="icon-wrapper"><mat-icon color="primary">local_shipping</mat-icon></div>
+                  <div class="text-wrapper">
+                    <h3>Αποστολή με Μεταφορέα;</h3>
+                    <p>Ενεργοποιήστε αν η δωρεά θα σταλεί με ιδιωτική μεταφορική.</p>
+                  </div>
+                  <mat-slide-toggle formControlName="own" color="primary"></mat-slide-toggle>
+                </div>
+
+                <div class="transporter-fields" *ngIf="donationForm.get('transporter.own')?.value">
+                  <mat-divider class="my-3"></mat-divider>
+                  <h4 class="subsection-header">Στοιχεία Μεταφορικής Εταιρείας</h4>
+
+                  <div class="form-grid">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Επωνυμία / Όνομα Οδηγού</mat-label>
+                      <input matInput formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Τηλέφωνο Επικοινωνίας</mat-label>
+                      <input matInput formControlName="phone">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="info-alert" *ngIf="!donationForm.get('transporter.own')?.value">
+                  <mat-icon>info</mat-icon>
+                  <span>Ο Φορέας (ΜΚΟ) είναι υπεύθυνος να παραλάβει τη δωρεά από την Τοποθεσία σας.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+
+      <div class="form-actions-footer">
+        <button *ngIf="selectedTabIndex > 0" mat-button type="button" (click)="moveBackTab()">
+          <mat-icon iconPositionStart>arrow_back</mat-icon> Πίσω
+        </button>
+
+        <span class="spacer" style="flex: 1;"></span>
+
+        <button *ngIf="selectedTabIndex < 3" mat-stroked-button color="primary" type="button" (click)="moveToNextTab()">
+          Επόμενο Βήμα <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+        </button>
+
+        <button *ngIf="isEditMode || selectedTabIndex >= 1" mat-raised-button color="primary" type="submit" [disabled]="donationForm.pending || isLoading">
+          <mat-icon style="margin-right: 8px;">save</mat-icon>
+          {{ isEditMode ? 'Αποθήκευση Αλλαγών' : 'Δημιουργία Δωρεάς' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,233 @@
+/* =========================
+   HEADER CONTAINER
+   ========================= */
+.main-header {
+  height: 70px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+
+  /* Sticky Position */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  /* Shadow & Border */
+  box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* =========================
+   LEFT: BRANDING
+   ========================= */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  height: 60px; /* Προσάρμοσέ το ανάλογα με το πόσο μεγάλο το θες */
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background-color: #3f51b5; /* Azure Blue */
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b; /* Slate */
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.brand-accent {
+  color: #3f51b5; /* Blue Accent */
+}
+
+/* =========================
+   RIGHT: USER SECTION
+   ========================= */
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  /*height: 100%;*/
+}
+
+.user-info {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.username {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Avatar Circle */
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #f1f5f9;
+  color: #64748b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logout Button */
+.logout-btn {
+  color: #ef4444; /* Red for logout */
+  opacity: 0.7;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #fee2e2;
+  opacity: 1;
+}
+
+/* The button that opens the menu */
+.user-menu-btn {
+  height: 56px; /* Taller button */
+  border-radius: 28px; /* Rounded pill shape */
+  padding: 4px 12px 4px 24px; /* More padding for size */
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.user-menu-btn:hover {
+  background-color: rgba(63, 81, 181, 0.08); /* Light primary tint */
+  border-color: rgba(63, 81, 181, 0.2);
+}
+
+.user-info-row {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* More space between name and icon */
+}
+
+/* BIGGER NAME */
+.username {
+  font-size: 15px; /* Increased from 14px */
+  font-weight: 500;
+  color: #1e293b;
+  letter-spacing: 0.3px;
+}
+
+/* BIGGER ICON */
+.avatar-icon {
+  font-size: 42px !important; /* Increased from 32px */
+  width: 42px !important;
+  height: 42px !important;
+  color: #3f51b5; /* Primary color for icon */
+}
+
+.arrow-icon {
+  color: #94a3b8;
+}
+
+/* The header inside the dropdown (Blue Background) */
+.menu-header {
+  background: linear-gradient(135deg, #3f51b5 0%, #303f9f 100%);
+  padding: 24px 20px;
+  margin: -9px -16px 8px; /* Negative margin to fill the top */
+  color: white;
+  text-align: center;
+}
+
+/* Avatar circle inside the menu */
+.menu-avatar {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px; /* Center it */
+  backdrop-filter: blur(4px);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.menu-name {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.menu-role-badge {
+  display: inline-block;
+  background-color: rgba(255,255,255, 0.2);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* Spacing for menu items */
+::ng-deep .custom-profile-menu {
+  border-radius: 16px !important;
+  overflow: hidden !important; /* Forces the header to stay inside the curves */
+  min-width: 260px !important;
+  background-color: white !important; /* Ensures the bottom half is white */
+  padding: 0 !important; /* Removes Material default padding on the wrapper */
+}
+
+/* 2. Remove default padding from the content container so Header sits flush */
+::ng-deep .custom-profile-menu .mat-mdc-menu-content {
+  padding-top: 0 !important;
+  padding-bottom: 8px !important; /* Add a little space at the bottom */
+}
+
+.logout-item {
+  transition: all 0.2s ease;
+}
+
+/* HOVER STATE: Red Background + Dark Red Text */
+/*!*.logout-item:hover {*!*/
+/*!*  background-color: #ffebee !important; !* Light Red background *!*!*/
+/*!*  color: #c62828 !important;            !* Dark Red text *!*!*/
+/*}*/
+
+/* Force the icon to match the text color on hover */
+.logout-item:hover mat-icon {
+  /*color: #c62828 !important;*/
+  color: red !important;
+}
+
+.myProfile-item:hover mat-icon {
+  color: blue !important;
+}

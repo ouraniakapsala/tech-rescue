@@ -1,0 +1,130 @@
+<div class="page-container">
+
+  <div class="header-row">
+    <div class="title-group">
+      <h2>Διαχείριση Δωρεών</h2>
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" routerLink="create">
+        <mat-icon>add</mat-icon> Νέα Δωρεά
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <div class="stat-info">
+        <h3>{{ totalItems }}</h3>
+        <p>ΣΥΝΟΛΟ</p>
+      </div>
+      <div class="stat-icon bg-blue"><mat-icon>inventory_2</mat-icon></div>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-info">
+        <h3>{{ activeCount }}</h3>
+        <p>ΟΛΟΚΛΗΡΩΜΕΝΕΣ</p>
+      </div>
+      <div class="stat-icon bg-green"><mat-icon>check_circle</mat-icon></div>
+    </div>
+
+    <div class="stat-card orange">
+      <div class="stat-info">
+        <h3>{{ pendingCount }}</h3>
+        <p>ΕΚΚΡΕΜΕΙ</p>
+      </div>
+      <div class="stat-icon bg-orange"><mat-icon>hourglass_empty</mat-icon></div>
+    </div>
+
+    <div class="stat-card red">
+      <div class="stat-info">
+        <h3>{{ deletedCount }}</h3>
+        <p>ΔΙΑΓΡΑΜΜΕΝΕΣ</p>
+      </div>
+      <div class="stat-icon bg-red"><mat-icon>delete</mat-icon></div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loader-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div class="table-container" *ngIf="!isLoading">
+    <div class="table-header">
+      <div class="col-main">ΚΩΔΙΚΟΣ & ΗΜΕΡΟΜΗΝΙΑ</div>
+      <div class="col-items">ΠΕΡΙΕΧΟΜΕΝΟ</div>
+      <div class="col-status">ΚΑΤΑΣΤΑΣΗ</div>
+      <div class="col-actions">ΕΝΕΡΓΕΙΕΣ</div>
+    </div>
+
+    <div class="table-row" *ngFor="let element of donations" [class.deleted-row]="element.delete">
+
+      <div class="col-main">
+        <div class="row-icon"><mat-icon>volunteer_activism</mat-icon></div>
+        <div class="text-info">
+          <span class="row-name">Δωρεά #{{ getShortId(element._id) }}</span>
+          <span class="row-desc">
+            <mat-icon class="tiny-icon">calendar_today</mat-icon>
+            {{ element.createdAt | date:'dd/MM/yyyy HH:mm' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="col-items">
+        <div class="item-summary" *ngIf="element.items?.length">
+          <strong>{{ element.items.length }} {{ element.items.length === 1 ? 'Είδος' : 'Είδη' }}</strong>
+
+          <span class="row-desc">
+            {{ element.items[0].product?.name || 'Προϊόν' }}
+            <span *ngIf="element.items[0].size" class="size-badge">{{ element.items[0].size }}</span>
+            <span *ngIf="element.items[0].box?.name"> | {{ element.items[0].box?.name }}</span>
+            <ng-container *ngIf="element.items.length > 1"> (+{{ element.items.length - 1 }})</ng-container>
+          </span>
+        </div>
+        <div class="row-desc italic" *ngIf="!element.items?.length">Χωρίς είδη</div>
+      </div>
+
+      <div class="col-status">
+        <span class="status-pill" [ngClass]="getStatusClass(element)">
+          {{ element.delete ? 'ΔΙΑΓΡΑΜΜΕΝΗ' : (element.status?.name || 'ΕΚΚΡΕΜΕΙ') | uppercase }}
+        </span>
+        <span class="assigned-badge" *ngIf="element.entity && !element.delete">
+          <mat-icon>check_circle</mat-icon> Έχει ανατεθεί
+        </span>
+      </div>
+
+      <div class="col-actions">
+        <ng-container *ngIf="!element.delete">
+          <button class="action-btn" [routerLink]="['edit', element._id]" matTooltip="Επεξεργασία">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button class="action-btn delete" (click)="deleteDonation(element._id)" matTooltip="Διαγραφή">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="element.delete">
+          <button class="action-btn restore" (click)="restoreDonation(element._id)" matTooltip="Επαναφορά">
+            <mat-icon>restore_from_trash</mat-icon>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+
+    <div *ngIf="donations.length === 0" class="empty-state">
+      <mat-icon>inbox</mat-icon>
+      <p>Δεν βρέθηκαν δωρεές.</p>
+    </div>
+  </div>
+
+  <div class="custom-paginator">
+    <mat-paginator
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25]"
+      (page)="onPageChange($event)"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+
+</div>

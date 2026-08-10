@@ -1,0 +1,365 @@
+/* ==========================================================================
+   1. FONTS & MATERIAL OVERRIDES
+   ========================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24 !important;
+}
+:root {
+  /*--app-font: 'Times New Romans', sans-serif;*/
+  /*--app-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;*/
+  --app-font: 'Source Sans Pro', sans-serif;
+  /* Force modern MDC components to use your custom font globally */
+  --mdc-typography-font-family: var(--app-font) !important;
+
+  /* Color Palette */
+  --primary: #3f51b5;
+  /*--bg-body: #f1f5f9;*/
+  --bg-body: #ebedf0;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+
+  /* Status Colors */
+  --info: #3b82f6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --purple: #8b5cf6;
+
+  /* Elevation */
+  /*--shadow: 0 4px 6px -1px rgba(0,0,0,0.05);*/
+  --shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --radius-lg: 16px;
+  --radius-sm: 8px;
+}
+
+html, body {
+  height: 100%; margin: 0;
+  font-family: var(--app-font), sans-serif !important;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+.mat-typography,
+.mat-typography *,
+.mat-mdc-form-field,
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-select-value,
+.mat-mdc-option,
+.mat-mdc-paginator,
+.mat-mdc-paginator-outer-container,
+.mat-mdc-tooltip,
+.mat-mdc-dialog-container,
+.mat-mdc-snack-bar-container,
+.mat-mdc-tab,
+.mdc-list-item__primary-text,
+.mdc-text-field__input {
+  font-family: var(--app-font), sans-serif !important;
+}
+
+/* CRITICAL: Protect Material Icons from being overridden by your text font */
+.mat-icon,
+.material-icons {
+  font-family: 'Material Icons', sans-serif !important;
+}
+
+/* Protect Newer Material Symbols (if you are loading them in index.html) */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined', sans-serif !important;
+}
+/* ==========================================================================
+   2. GLOBAL PAGE LAYOUT
+   ========================================================================== */
+.page-container {
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;
+
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+}
+
+
+.header-actions {
+  display: flex;
+  gap: 12px;            /* Η απόσταση ανάμεσα στα κουμπιά */
+  align-items: center;  /* Για να είναι τέλεια ευθυγραμμισμένα οριζόντια */
+}
+
+.header-row h2 {
+  font-size: 24px;
+  font-weight: 500;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* ==========================================================================
+   3. STATS GRID (The modern bottom-border style)
+   ========================================================================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.stat-card {
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.2s ease;
+  border-bottom: 4px solid transparent;
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+/* Card Color Variants */
+.stat-card.blue   { border-bottom-color: var(--info); }
+.stat-card.green  { border-bottom-color: var(--success); }
+.stat-card.orange { border-bottom-color: var(--warning); }
+.stat-card.red    { border-bottom-color: var(--danger); }
+.stat-card.purple { border-bottom-color: var(--purple); }
+
+.stat-info h3 { margin: 0; font-size: 26px; font-weight: 700; }
+.stat-info p { margin: 0; font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+
+/* Icon Backgrounds */
+.stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.bg-blue   { background: #eff6ff; color: var(--info); }
+.bg-green  { background: #ecfdf5; color: var(--success); }
+.bg-orange { background: #fffbeb; color: var(--warning); }
+.bg-red    { background: #fef2f2; color: var(--danger); }
+.bg-purple { background: #f5f3ff; color: var(--purple); }
+
+/* ==========================================================================
+   4. DATA TABLES / LISTS
+   ========================================================================== */
+.table-container {
+  background: white;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.table-header {
+  height: 56px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 12px; font-weight: 700; color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0 24px;
+  opacity: 0.85;
+}
+
+.table-row {
+  height: 72px;
+  border-bottom: 1px solid #f1f5f9;
+  padding: 0 24px;
+  transition: background-color 0.2s;
+}
+.table-row:hover { background-color: #f8fafc; }
+.table-row:last-child { border-bottom: none; }
+
+/* Column Common Styles */
+.col-main { display: flex; align-items: center; gap: 16px; overflow: hidden; }
+.row-icon {
+
+  width: 36px; height: 36px; border-radius: 50%; background: #f1f5f9;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  color: #3b82f6;
+}
+.row-icon mat-icon {
+  font-size: 20px;      /* Από 18px ή 20px */
+  width: 20px;          /* SOS: Πρέπει να ορίσεις και πλάτος/ύψος */
+  height: 20px;
+  line-height: 20px;    /* Για να κεντραριστεί τέλεια */
+}
+.text-info { display: flex; flex-direction: column; gap: 2px; }
+.row-name { font-size: 14px; font-weight: 600; color: var(--text-main); }
+.row-desc { font-size: 12px; color: var(--text-muted); }
+
+/* Status Pills */
+.status-pill {
+  padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+}
+.status-pill.active { background: #ecfdf5; color: var(--success); }
+.status-pill.inactive { background: #fffbeb; color: var(--warning); }
+.status-pill.deleted { background: #fef2f2; color: var(--danger); }
+
+/* Action Buttons */
+.action-btn {
+  color: #94a3b8; width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center; border-radius: 50%;
+  transition: all 0.2s ease; border: none; background: transparent; cursor: pointer;
+}
+.action-btn:hover { background: #eff6ff; color: var(--info); }
+.action-btn.delete:hover { background: #fef2f2; color: var(--danger); }
+
+/* ==========================================================================
+   5. SHARED UTILITIES
+   ========================================================================== */
+.deleted-row { background-color: #fcfcfc; }
+.deleted-row .row-name { text-decoration: line-through; color: #cbd5e1; }
+.deleted-row .row-icon { opacity: 0.5; }
+
+.empty-state { padding: 40px; text-align: center; color: var(--text-muted); }
+
+/* =========================
+   CUSTOM PAGINATOR (White Theme)
+   ========================= */
+.custom-paginator {
+  width: fit-content;
+  margin: 30px auto;
+  border-radius: var(--radius-sm);
+  background-color: white !important; /* Το λευκό που θέλεις */
+  box-shadow: var(--shadow);
+  border: 1px solid #e2e8f0;
+  overflow: hidden; /* Για να μην προεξέχουν οι γωνίες του Material component */
+  font-size: 17px;
+}
+
+/* Εξαναγκάζουμε το εσωτερικό Material component να γίνει διάφανο
+   για να φανεί το λευκό του container */
+.custom-paginator .mat-mdc-paginator {
+  background-color: transparent !important;
+
+}
+
+/* Προαιρετικά: Κάνουμε τα βέλη και το κείμενο λίγο πιο σκούρα για καλύτερο contrast */
+.custom-paginator .mat-mdc-paginator-navigation-button, .mat-mdc-paginator-outer-container,
+.custom-paginator .mat-mdc-text-field-wrapper {
+  color: var(--text-main);
+  font-size: 13px;
+  letter-spacing: 0.07em;
+  /*font-family: "Source Sans Pro", 'Helvetica Neue', Arial, sans-serif;;*/
+
+}
+
+/* ==========================================================================
+   GLOBAL CUSTOM RAISED BUTTONS - FADED PURPLE THEME
+   ========================================================================== */
+.mat-mdc-raised-button.mat-primary {
+  /* BLUE FADE GRADIENT: Από ένα απαλό sky blue στο βασικό μπλε */
+  /*background: linear-gradient(135deg, #5c6bc0 0%, #4287f5 100%) !important;*/
+  background: linear-gradient(170deg, #4287f5 0%, #5c6bc0 100%) !important;
+  color: #ffffff !important;
+  font-size: 16px;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  /*text-transform: uppercase !important;*/
+  letter-spacing: 0.8px !important;
+
+  /* Σκιά που σβήνει (faded shadow) */
+  box-shadow: 0 4px 12px rgba(63, 81, 181, 0.25) !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.mat-mdc-raised-button.mat-primary:hover {
+  /* Στο hover το fade γίνεται λίγο πιο "ζωντανό" */
+  background: linear-gradient(135deg, #667eea 0%, #4287f5 100%) !important;
+  box-shadow: 0 6px 18px rgba(63, 81, 181, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+/* Το λευκό overlay που δίνει την "faded" / παστέλ αίσθηση */
+.mat-mdc-raised-button.mat-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Το Shimmer εφέ (η γυαλάδα που περνάει) */
+.mat-mdc-raised-button.mat-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: 0.5s;
+}
+
+.mat-mdc-raised-button.mat-primary:hover::after {
+  left: 100%;
+}
+
+/* ==========================================================================
+   GLOBAL CUSTOM STROKED BUTTONS - BLUE THEME
+   ========================================================================== */
+/* Πιάνουμε όλες τις πιθανές κλάσεις του Stroked Button */
+.mat-mdc-outlined-button.mat-primary,
+button[mat-stroked-button][color="primary"] {
+  /*height: 42px !important;*/
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  /*text-transform: uppercase !important;*/
+  letter-spacing: 0.8px !important;
+  color: #3f51b5 !important;
+  background-color: rgba(92, 107, 192, 0.05) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.25s ease !important;
+}
+
+/* Hover κατάσταση */
+.mat-mdc-outlined-button.mat-primary:hover,
+button[mat-stroked-button][color="primary"]:hover {
+  background-color: rgba(63, 81, 181, 0.12) !important;
+  border-color: #3f51b5 !important;
+  box-shadow: 0 4px 10px rgba(63, 81, 181, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Disabled κατάσταση (για το "Δεσμευμένη") */
+.mat-mdc-outlined-button:disabled,
+button[mat-stroked-button][disabled] {
+  border: 1px solid #e2e8f0 !important;
+  color: #94a3b8 !important;
+  background-color: #f8fafc !important;
+  opacity: 0.7 !important;
+}
+
+/* Διόρθωση εικονιδίων */
+.mat-mdc-outlined-button mat-icon,
+button[mat-stroked-button] mat-icon {
+  margin-right: 8px !important;
+  color: inherit !important;
+}
+.mat-mdc-select-panel {
+  background-color: #ffffff !important;
+}
+
+/* Σωστό χρώμα κειμένου για να κάνει αντίθεση με το λευκό */
+.mat-mdc-select-panel .mat-mdc-option {
+  color: #1e293b !important;
+}
+
+/* Απαλό background όταν περνάς το ποντίκι ή όταν η επιλογή είναι τσεκαρισμένη */
+.mat-mdc-select-panel .mat-mdc-option:hover,
+.mat-mdc-select-panel .mat-mdc-option.mdc-list-item--selected {
+  background-color: #f1f5f9 !important;
+}
+
+

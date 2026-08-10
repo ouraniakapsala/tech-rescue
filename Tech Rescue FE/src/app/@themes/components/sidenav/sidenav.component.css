@@ -1,0 +1,124 @@
+
+/* 1. Wrapper to fill the fixed sidebar area */
+.sidenav-wrapper {
+  height: 100%;
+ max-width: 300px;
+  overflow-x: hidden;
+
+  /* ΝΕΟ: Ένα πιο βαθύ, σκούρο Indigo (από Muted Indigo σε Midnight Navy) */
+  /*background: linear-gradient(100deg, #3949ab 0%, #3f51b5 0%);*/
+  /*background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%);*/
+  background: #2c3985;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1); /* Λίγο πιο έντονη σκιά για να ξεχωρίζει από το λευκό main content */
+}
+
+
+/* 2. Logo Area */
+.logo {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 24px;
+
+  /* Ακόμα πιο σκούρο background για το λογότυπο ώστε να κάνει "βύθιση" */
+  background-color: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Πολύ πιο διακριτική γραμμή */
+}
+
+.logo h3 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+
+/* 3. Navigation Links */
+mat-nav-list {
+  padding-top: 20px !important;
+
+}
+
+/* The Anchor Tag styling */
+.nav-item {
+  /* Ημιδιάφανο λευκό αντί για γκρι */
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin: 4px 16px; /* Λίγο μεγαλύτερο margin για ωραίο "button" εφέ */
+  border-radius: 12px; /* Πιο στρογγυλεμένες γωνίες */
+  transition: all 0.3s ease;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-item ::ng-deep .mdc-list-item__content,
+.nav-item ::ng-deep .mat-mdc-list-item-unscoped-content {
+  display: flex !important;
+  align-items: center !important;
+  flex-direction: row !important;
+  width: 100% !important;
+}
+
+/* Icon Styling */
+.nav-item mat-icon {
+  margin-right: 12px;
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: all 0.3s ease;
+
+
+}
+
+.nav-item mat-icon,
+.nav-item .nav-label,
+.nav-item ::ng-deep .mdc-list-item__primary-text {
+  color: inherit !important;
+}
+
+.nav-label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Hover State */
+.nav-item:hover {
+  /* Ελαφρύ λευκό φόντο στο hover */
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.nav-item:hover mat-icon {
+  color: #ffffff !important;
+}
+
+/* 4. Active Link State */
+.active-link {
+  /* Πιο έντονο λευκό φόντο για τη σελίδα που βρισκόμαστε */
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: none; /* Αφαιρέσαμε τη μπλε σκιά γιατί τώρα το φόντο είναι ήδη μπλε */
+}
+
+.active-link mat-icon {
+  color: #ffffff !important;
+}
+
+/* 5. Section Header Styling */
+.section-header {
+  padding: 24px 24px 8px 24px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+
+  /* Ημιδιάφανο λευκό για να "δένει" με το μπλε φόντο */
+  color: rgba(255, 255, 255, 0.5);
+
+  user-select: none;
+}

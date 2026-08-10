@@ -1,0 +1,973 @@
+/* ==========================================================================
+   GLOBAL WRAPPER & BACKGROUND TEXTURE
+   ========================================================================== */
+.app-landing-wrapper {
+  position: relative;
+  min-height: 100vh;
+  /*font-size: 12px;*/
+  /*font-family: 'Roboto', sans-serif;*/
+  background: linear-gradient(135deg, #f6f8fd 0%, #edf2f9 50%, #eef2ff 100%);
+  color: #1e293b;
+
+  overflow-x: hidden;
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.glow-top-right {
+  top: -200px;
+  right: -150px;
+  background: radial-gradient(circle, #e0e7ff 0%, transparent 70%);
+}
+
+.glow-bottom-left {
+  bottom: 10%;
+  left: -200px;
+  background: radial-gradient(circle, #dcfce7 0%, transparent 70%);
+}
+/*.watermark-bg {*/
+/*  position: fixed;*/
+/*  top: 0; left: 0; width: 100vw; height: 100vh;*/
+/*  z-index: 0; pointer-events: none; overflow: hidden;*/
+/*}*/
+
+/*.wm-icon {*/
+/*  position: absolute;*/
+/*  color: #3f51b5;*/
+/*}*/
+
+/*.wm-1 { top: -5%; left: -5%; font-size: 500px; width: 500px; height: 500px; transform: rotate(-15deg); opacity: 0.03; }*/
+/*.wm-2 { bottom: -10%; right: -5%; font-size: 450px; width: 450px; height: 450px; transform: rotate(10deg); opacity: 0.03; }*/
+/*.wm-3 { top: 35%; left: 55%; font-size: 300px; width: 300px; height: 300px; transform: rotate(-5deg); opacity: 0.02; }*/
+/*.wm-4 { top: 20%; right: 10%; font-size: 200px; width: 200px; height: 200px; transform: rotate(20deg); opacity: 0.02; }*/
+/*.wm-5 { bottom: 20%; left: 10%; font-size: 350px; width: 350px; height: 350px; transform: rotate(-25deg); opacity: 0.02; }*/
+/*.wm-6 { top: 60%; left: 35%; font-size: 250px; width: 250px; height: 250px; transform: rotate(15deg); opacity: 0.02; }*/
+
+/* ==========================================================================
+   ULTRA WIDE CONTAINER (Ο πυρήνας του νέου layout)
+   ========================================================================== */
+.ultra-wide-section {
+  position: relative;
+  z-index: 1;
+  width: 92%; /* Πιάνει σχεδόν όλη την οθόνη */
+  max-width: 1800px; /* Τεράστιο μέγιστο όριο */
+  margin: 0 auto;
+
+}
+.second-section {
+  /* Gradient που ξεκινάει από το βασικό Indigo και ανοίγει ελαφρώς */
+  /*background: linear-gradient(170deg, #3f51b5 0%, #5162c4 50%, #5c6bc0 100%);*/
+  background: linear-gradient(200deg, #5162c4 0%, #3f51b5 100%);
+  /*background: linear-gradient(50deg, #5162c4 5%, #3f51b5 50%);*/
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Προσθήκη μιας απαλής λάμψης μέσα στο section για να μην είναι "βαρύ" */
+.second-section::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+.second-section .section-heading {
+  color: #ffffff; /* Λευκός τίτλος */
+}
+
+.second-section .section-heading::before {
+  background: rgba(255, 255, 255, 0.4); /* Πιο απαλή γραμμή */
+}
+
+.second-section .reveal-text {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.second-section .reveal-text:hover {
+  transform: perspective(1000px) rotateY(-5deg) translateY(-10px);
+  background: #ffffff;
+}
+
+/* Διόρθωση για το Icon Dot αν το χρησιμοποιείς στη μέση */
+.second-section .icon-dot {
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Διόρθωση των Label και Number για να φαίνονται στο σκούρο Indigo */
+.second-section .reveal-label {
+  color: #3f51b5; /* Κρατάμε το Indigo για το label πάνω στη λευκή κάρτα */
+}
+
+.second-section .reveal-number {
+  color: #ffffff;
+  opacity: 0.1; /* Τα νούμερα στο φόντο γίνονται λευκά και αχνά */
+}
+
+/* ==========================================================================
+   NAVBAR
+   ========================================================================== */
+.top-nav {
+  position: relative;
+  z-index: 10;
+  width: 92%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 20px; font-weight: 800; color: #3f51b5; letter-spacing: 0.5px;
+}
+.brand-icon { font-size: 28px; width: 28px; height: 28px; }
+
+.nav-links { display: flex; align-items: center; gap: 16px; }
+.text-link { color: #475569; font-weight: 600; }
+.primary-btn { border-radius: 8px; font-weight: 600; padding: 0 24px; background-color: #3f51b5; }
+
+/* ==========================================================================
+   HERO SPREAD (Τέρμα Αριστερά - Τέρμα Δεξιά)
+   ========================================================================== */
+.hero-spread {
+  padding: 150px 0 150px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Σπρώχνει τα στοιχεία στα άκρα */
+  gap: 100px; /* Μεγάλο κενό στη μέση */
+}
+
+.hero-content {
+  flex: 0 0 50%; /* Πιάνει το 50% ακριβώς */
+  text-align: left;
+}
+
+.tagline {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 800;
+  color: #3f51b5;
+  background: rgba(63, 81, 181, 0.1);
+  padding: 8px 20px;
+  border-radius: 30px;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.main-title {
+  font-size: 64px; /* Ακόμα μεγαλύτερο */
+  font-weight: 900;
+  line-height: 1.1;
+  color: #0f172a;
+  margin: 0 0 30px 0;
+  letter-spacing: -1.5px;
+}
+
+.main-desc {
+  font-size: 20px;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 50px;
+  max-width: 90%;
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.primary-btn.huge {
+  height: 60px !important;
+  padding: 0 45px !important;
+  font-size: 18px;
+  border-radius: 12px;
+}
+
+.secure-note {
+  display: flex; align-items: center; gap: 8px;
+  color: #64748b; font-size: 15px; font-weight: 500;
+}
+.secure-note mat-icon { color: #10b981; font-size: 22px; width: 22px; height: 22px; }
+
+/* Hero Visual (Σπρωγμένο τέρμα δεξιά) */
+.hero-visual {
+  flex: 0 0 40%; /* Το άλλο 40% */
+  display: flex;
+  justify-content: flex-end; /* Ευθυγράμμιση τέρμα δεξιά */
+  position: relative;
+}
+
+.mockup-window {
+  width: 100%;
+  max-width: 550px; /* Μεγάλωσε για να γεμίζει το χώρο */
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 1);
+  border-radius: 24px;
+  box-shadow: 0 30px 60px rgba(63, 81, 181, 0.08);
+  overflow: hidden;
+  transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
+  transition: transform 0.5s ease;
+}
+.mockup-window:hover {
+  transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+}
+
+.mockup-header {
+  padding: 16px; border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: flex; gap: 8px; background: rgba(255,255,255,0.6);
+}
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.red { background: #ef4444; } .dot.yellow { background: #f59e0b; } .dot.green { background: #10b981; }
+
+.mockup-body { padding: 30px; display: flex; flex-direction: column; gap: 20px; }
+
+.mockup-card {
+  background: white; padding: 20px; border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  display: flex; align-items: center; gap: 20px;
+}
+.mockup-card.offset { margin-left: 40px; }
+
+.icon-accent {
+  background: #eef2ff; color: #3f51b5; padding: 14px; border-radius: 12px;
+  font-size: 28px; width: 28px; height: 28px;
+}
+.icon-accent.green { background: #ecfdf5; color: #10b981; }
+.icon-accent.orange { background: #fffbeb; color: #f59e0b; }
+
+.lines { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.line { height: 10px; background: #e2e8f0; border-radius: 5px; }
+.w-90 { width: 90%; } .w-80 { width: 80%; } .w-70 { width: 70%; } .w-60 { width: 60%; } .w-50 { width: 50%; } .w-40 { width: 40%; }
+
+/* ==========================================================================
+   SECTION HEADINGS (Αριστερή Στοίχιση)
+   ========================================================================== */
+.section-heading {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #3f51b5;
+  margin-bottom: 70px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-heading::before {
+  content: '';
+  display: inline-block;
+  width: 48px; height: 4px;
+  background: #3f51b5; border-radius: 2px;
+}
+
+/* ==========================================================================
+   REVEAL SECTION (Minimal & Airy Narrative)
+   ========================================================================== */
+.reveal-section {
+  padding: 70px 0;
+  position: relative;
+
+
+}
+
+.reveal-container {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 50px; /* Μεγάλη απόσταση μεταξύ των ενοτήτων για να "αναπνέουν" */
+}
+
+.reveal-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.reveal-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.reveal-text {
+  flex: 0 0 50%;
+  position: relative;
+  padding: 30px 40px 40px 40px;
+  border: 2px solid rgba(63, 81, 181, 0.1);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.reveal-text:hover {
+  /*transform: translateY(-5px);*/
+  transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
+}
+
+
+.reveal-spacer {
+  flex: 0 0 40%; /* Το άλλο μισό μένει κενό για Zig-Zag εφέ */
+}
+
+/* Τα μεγάλα αχνά νούμερα στο φόντο */
+.reveal-number {
+  position: absolute;
+  top: -40px;
+  left: -20px;
+  font-size: 180px;
+  font-weight: 900;
+  color: #3f51b5;
+  opacity: 0.04; /* Πολύ αχνό, σχεδόν σαν υδατογράφημα */
+  z-index: 0;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.reveal-row.reverse .reveal-number {
+  left: auto;
+  right: -20px;
+}
+
+.reveal-icon {
+  font-size: 44px;
+  width: 44px;
+  height: 44px;
+  /*margin-bottom: 24px;*/
+
+  margin: 0 55px 23px;
+  display: block; /* SOS: Απαραίτητο για να πιάσει το margin: auto */
+
+  position: relative;
+  z-index: 1;
+}
+
+.reveal-icon.primary { color: #3f51b5; }
+.reveal-icon.blue { color: #3b82f6; }
+.reveal-icon.green { color: #10b981; }
+
+.reveal-label {
+  font-size: 14px;
+  font-weight: 800;
+  color: #3f51b5;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.reveal-text h3 {
+  font-size: 38px;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0 0 24px 0;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+}
+
+.reveal-text p {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #475569;
+  text-align: justify;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+/* ==========================================================================
+   WORKFLOW SPREAD (Interactive Dynamic Lines)
+   ========================================================================== */
+.workflow-spread {
+  padding: 100px 0 160px 0;
+}
+
+.wide-workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+  position: relative;
+}
+
+.step-card {
+  background: #ffffff;
+  border: 1px solid rgba(255,255,255, 0.9);
+  border-radius: 24px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(63, 81, 181, 0.04);
+  /* Προσοχή: Βγάλαμε το overflow: hidden για να φαίνονται οι γραμμές */
+  z-index: 2; /* Φέρνει τις κάρτες μπροστά από τις γραμμές */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+/* 1. HOVER ΕΦΕ ΠΟΥ ΣΗΚΩΝΕΙ ΤΙΣ ΚΑΡΤΕΣ */
+.step-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 20px 40px rgba(63, 81, 181, 0.12);
+}
+
+.step-card.elevated {
+  transform: translateY(-40px);
+  box-shadow: 0 30px 60px rgba(63, 81, 181, 0.08);
+}
+
+.step-card.elevated:hover {
+  transform: translateY(-55px);
+}
+
+/* 2. ΟΙ ΔΙΑΚΕΚΟΜΜΕΝΕΣ ΓΡΑΜΜΕΣ (::after) */
+.step-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -40px; /* Πιάνει ακριβώς το κενό του grid (gap: 40px) */
+  width: 40px;
+  height: 0;
+  border-top: 4px dotted #cbd5e1;
+  transform-origin: left center; /* Η κίνηση ξεκινάει από την άκρη της κάρτας */
+  z-index: -1;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease;
+}
+
+/* Κρύβουμε τη γραμμή από την τελευταία κάρτα */
+.step-card:last-child::after {
+  display: none;
+}
+
+/* ==========================================================================
+   ΓΕΩΜΕΤΡΙΑ ΚΙΝΗΣΗΣ: Υπολογισμένες γωνίες και τεντώματα!
+   ========================================================================== */
+
+/* --- ΓΡΑΜΜΗ 1 (Από Κάρτα 1 σε Κάρτα 2) --- */
+.step-card:nth-child(1)::after {
+  /* Η κάρτα 2 είναι 40px πιο ψηλά. Άρα η γραμμή έχει γωνία -45 μοίρες */
+  transform: rotate(-45deg) scaleX(1.414);
+}
+.step-card:nth-child(1):hover::after {
+  /* Αν ανέβει η Κάρτα 1, η γωνία μικραίνει στις -32 μοίρες */
+  transform: rotate(-32deg) scaleX(1.179);
+  border-color: #3f51b5; /* Φωτίζεται η γραμμή */
+}
+.wide-workflow-grid:has(.step-card:nth-child(2):hover) .step-card:nth-child(1)::after {
+  /* Αν ανέβει η Κάρτα 2, η γωνία μεγαλώνει στις -54 μοίρες */
+  transform: rotate(-54deg) scaleX(1.7);
+  border-color: #3f51b5;
+}
+
+/* --- ΓΡΑΜΜΗ 2 (Από Κάρτα 2 σε Κάρτα 3) --- */
+.step-card:nth-child(2)::after {
+  /* Η κάρτα 3 είναι 40px πιο χαμηλά. Άρα η γραμμή έχει γωνία +45 μοίρες */
+  transform: rotate(45deg) scaleX(1.414);
+}
+.step-card:nth-child(2):hover::after {
+  /* Αν ανέβει η Κάρτα 2, η γωνία μεγαλώνει στις +54 μοίρες */
+  transform: rotate(54deg) scaleX(1.7);
+  border-color: #3f51b5;
+}
+.wide-workflow-grid:has(.step-card:nth-child(3):hover) .step-card:nth-child(2)::after {
+  /* Αν ανέβει η Κάρτα 3, η γωνία μικραίνει στις +32 μοίρες */
+  transform: rotate(32deg) scaleX(1.179);
+  border-color: #3f51b5;
+}
+
+/* Αν (θεωρητικά) γίνουν hover και οι δύο ταυτόχρονα */
+.wide-workflow-grid:has(.step-card:nth-child(2):hover) .step-card:nth-child(1):hover::after {
+  transform: rotate(-45deg) scaleX(1.414);
+}
+.wide-workflow-grid:has(.step-card:nth-child(3):hover) .step-card:nth-child(2):hover::after {
+  transform: rotate(45deg) scaleX(1.414);
+}
+
+/* ==========================================================================
+   ΥΠΟΛΟΙΠΑ ΣΤΟΙΧΕΙΑ ΚΑΡΤΑΣ
+   ========================================================================== */
+.bg-number {
+  position: absolute;
+  top: -20px; right: 10px;
+  font-size: 150px;
+  font-weight: 900;
+  color: #f1f5f9;
+  line-height: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.step-content {
+  position: relative;
+  z-index: 1;
+}
+
+.step-icon { font-size: 40px; width: 40px; height: 40px; color: #cbd5e1; margin-bottom: 24px; }
+.step-icon.blue { color: #3b82f6; }
+.step-icon.green { color: #10b981; }
+
+.step-card h4 { font-size: 24px; font-weight: 800; color: #1e293b; margin-bottom: 16px; }
+.step-card p { font-size: 16px; line-height: 1.7; color: #475569; margin: 0; }
+ /*==========================================================================*/
+ /*  RESPONSIVE DESIGN (Επιστροφή σε μονή στήλη για κινητά/tablets)*/
+   /*========================================================================== *!*/
+@media (max-width: 1200px) {
+  .ultra-wide-section { width: 90%; }
+
+  /* HERO: Κρατάμε αριστερή στοίχιση, απλά το βάζουμε σε στήλη */
+  .hero-spread { flex-direction: column; align-items: flex-start; gap: 50px; padding: 60px 0; }
+  .hero-content { flex: 1; text-align: center; }
+  .main-desc { margin: 0 0 40px 0; }
+  .action-group { justify-content: flex-start; }
+  /* Το γραφικό (κινητό) κεντράρεται από κάτω */
+  .hero-visual { width: 100%; display: flex; justify-content: center; }
+  .mockup-window { transform: none; max-width: 100%; }
+
+  /* REVEAL CARDS (ΣΚΟΠΟΣ): Στοίβα από κάρτες, ΟΧΙ κεντραρισμένες */
+  .reveal-container { gap: 30px; }
+  .reveal-row, .reveal-row.reverse {
+    /*flex-direction: column;*/
+    gap: 0; }
+  .reveal-text { flex: 1; width: 100%; text-align: left; padding: 40px 30px; }
+  .reveal-text p { text-align: left; }
+  .reveal-spacer { display: none; }
+
+  /* Το τεράστιο νούμερο πάει πάνω-δεξιά σαν σφραγίδα για να μην ενοχλεί το κείμενο */
+  .reveal-number, .reveal-row.reverse .reveal-number {
+    left: auto; right: 20px; top: -10px; font-size: 120px; transform: none;
+  }
+  .reveal-icon { display: block; margin: 0 auto 20px auto; }
+
+  /* Εξασφαλίζουμε ότι ο μικρός και ο μεγάλος τίτλος ακολουθούν τη στοίχιση στο κέντρο */
+  .reveal-label, .reveal-text h3 { text-align: center; }
+
+  /* Το κείμενο παραμένει σε πλήρη στοίχιση για να διαβάζεται εύκολα σε μικρές οθόνες */
+  .reveal-text p { text-align: justify; }
+
+  .reveal-spacer { display: none; }
+
+  /* Το τεράστιο νούμερο παραμένει πάνω-δεξιά σαν σφραγίδα */
+  .reveal-number, .reveal-row.reverse .reveal-number {
+    left: auto; right: 20px; top: -10px; font-size: 120px; transform: none;
+  }
+
+  /* Τίτλοι Ενοτήτων: Κρατάμε τη γραμμή στα αριστερά */
+  .section-heading.right-aligned { justify-content: flex-start; text-align: left; }
+  .section-heading.right-aligned::after { display: none; }
+  .section-heading.right-aligned::before { display: inline-block; }
+
+  /* WORKFLOW (ΠΩΣ ΛΕΙΤΟΥΡΓΕΙ) */
+  .wide-workflow-grid { grid-template-columns: 1fr; gap: 30px; }
+  /* Βγάζουμε το σκαλοπάτι και τις οριζόντιες γραμμές-ελατήρια γιατί δεν χωράνε στα κινητά */
+  .step-card.elevated { transform: none; box-shadow: 0 10px 30px rgba(63, 81, 181, 0.04); }
+  .step-card:hover, .step-card.elevated:hover { transform: translateY(-5px); }
+  .step-card::after {
+    display: block; /* Τις εμφανίζουμε ξανά */
+    top: 100%; /* Ξεκινάνε ακριβώς από τον πάτο της κάρτας */
+    left: 50%; /* Στο κέντρο */
+    right: auto;
+    width: 0;
+    height: 60px; /* Αρκετά μακριές για να περνάνε πίσω από την επόμενη κάρτα */
+    border-top: none; /* Βγάζουμε την οριζόντια γραμμή */
+    border-left: 4px dotted #cbd5e1; /* Βάζουμε κάθετη γραμμή */
+    transform: none !important; /* Ακυρώνουμε τις γωνίες του desktop */
+    z-index: -1; /* Κρύβονται πίσω από την από κάτω κάρτα */
+    transition: border-color 0.4s ease;
+  }
+
+  /* Όταν κάνεις hover στην κάρτα, η κάθετη γραμμή φωτίζεται! */
+  .step-card:hover::after {
+    border-color: #3f51b5;
+  }
+
+  /* Κρύβουμε τις οριζόντιες τελείες του desktop γιατί δεν χρειάζονται εδώ */
+  .step-card::before { display: none; }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 16px; text-align:
+    center; }
+
+
+
+  /* PLATFORM SHOWCASE RESPONSIVE (Native Swipe Carousel) */
+  .platform-showcase-flow { margin-top: 80px; }
+
+  .screens-container {
+    height: auto;
+    /* Γυρίζουμε το container σε οριζόντια διάταξη */
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 0 20px 30px 20px; /* Αφήνουμε χώρο δεξιά-αριστερά και κάτω για τη σκιά */
+
+    /* Η μαγεία του Native Mobile Scrolling */
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory; /* Μαγνητώνει τις εικόνες στο κέντρο */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Τέλειο, ομαλό swipe στο iOS */
+
+    /* Κρύβουμε την άσχημη μπάρα κύλισης */
+    scrollbar-width: none;
+  }
+  .screens-container::-webkit-scrollbar { display: none; }
+
+  /* Κλειδώνουμε τις κάρτες και ακυρώνουμε την 3D Τράπουλα */
+  .screen-wrapper,
+  .screens-container:hover .screen-wrapper,
+  .screens-container:hover .screen-wrapper:hover {
+    position: relative !important;
+    transform: none !important;
+
+    /* Το μυστικό: 85% πλάτος για να φαίνεται η άκρη της επόμενης κάρτας! */
+    flex: 0 0 85% !important;
+    height: 350px !important;
+
+    left: auto !important;
+    right: auto !important;
+    opacity: 1 !important;
+    scroll-snap-align: center; /* Όταν αφήνεις το δάχτυλο, η κάρτα πάει ακριβώς στο κέντρο */
+    box-shadow: 0 15px 40px rgba(15, 23, 42, 0.1) !important;
+    z-index: 1 !important;
+  }
+}
+
+/* ==========================================================================
+   MOBILE EXCLUSIVE (Οθόνες κινητών έως 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Μαζεύουμε τα περιθώρια για να μη σκρολάρει άσκοπα ο χρήστης */
+  .hero-spread { padding: 40px 0; }
+  .second-section { padding: 60px 0; }
+  .reveal-section { padding: 0; }
+  .workflow-spread { padding: 60px 0; }
+
+  /* Navbar: Λογότυπο πάνω, Κουμπί κάτω */
+  .top-nav { gap: 20px; padding: 20px 0; }
+
+  /* Μικραίνουμε (shrink) γραμματοσειρές στο Hero */
+  .main-title { font-size: 38px; line-height: 1.15; letter-spacing: -1px; }
+  .main-desc { font-size: 18px; max-width: 100%; }
+
+  /* Το κουμπί πιάνει όλο το πλάτος για να πατιέται εύκολα με τον αντίχειρα */
+  .action-group { flex-direction: column;  width: 100%; gap: 16px; }
+  .primary-btn.huge {
+    height: 50px !important;
+    width: fit-content;
+    /*padding: 0 45px !important;*/
+    /*font-size: 18px;*/
+    /*border-radius: 12px;*/
+  }
+  .secure-note { justify-content: center; }
+
+  /* Κάρτες "ΣΚΟΠΟΣ ΤΟΥ ΕΡΓΟΥ" */
+  .reveal-text { padding: 30px 20px; border-radius: 20px; }
+  .reveal-text h3 { font-size: 26px; margin-bottom: 16px; }
+  .reveal-text p { font-size: 16px; line-height: 1.6; }
+  /* Το νούμερο μικραίνει και κάθεται τέλεια στη γωνία */
+  .reveal-number, .reveal-row.reverse .reveal-number { font-size: 90px; top: 0; right: 10px; }
+
+  /* Κάρτες "ΠΩΣ ΛΕΙΤΟΥΡΓΕΙ" */
+  .step-card { padding: 24px; border-radius: 20px; }
+  .step-card h4 { font-size: 22px; }
+  .step-card p { font-size: 15px; }
+  .bg-number { font-size: 100px; right: 10px; top: -10px; }
+
+  /* Το λογότυπο στο footer μικραίνει αναλογικά */
+  .header-logo { height: 70px; }
+
+  /* SHOWCASE: Τέλειες αναλογίες για κινητά τηλέφωνα */
+  .platform-showcase-flow { margin-top: 60px; }
+
+  .showcase-header h3 { font-size: 14px; }
+  .showcase-header p { font-size: 18px; }
+
+  .screen-wrapper,
+  .screens-container:hover .screen-wrapper,
+  .screens-container:hover .screen-wrapper:hover {
+    height: 240px !important; /* Πιο κοντό για να χωράει όμορφα στο κινητό */
+    border-width: 2px !important;
+    border-radius: 12px !important;
+  }
+}
+
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.app-footer {
+  /* Μια πολύ απαλή μπλε/indigo γραμμή αντί για σκληρό γκρι */
+  border-top: 1px solid rgba(63, 81, 181, 0.15);
+
+  /* Παγωμένο ίντιγκο που ταιριάζει ακριβώς με το τέλος του background gradient της σελίδας σου */
+  background: linear-gradient(105deg, #eef2ff 50%, #edf2f9 50%);
+  /*background-color: #eef2ff;*/
+  padding: 30px 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between; /* Λογότυπο ΤΕΡΜΑ ΑΡΙΣΤΕΡΑ, Κείμενο ΤΕΡΜΑ ΔΕΞΙΑ */
+  align-items: center;
+  width: 92%;
+  max-width: 1800px; /* Ίδιο με το υπόλοιπο layout σου */
+  margin: 0 auto;
+}
+
+.header-logo {
+  height: 90px; /* Το 90px ίσως είναι πολύ ογκώδες, το 65px "κάθεται" πιο κομψά */
+  width: auto;
+}
+
+.copyright {
+  /* Το βασικό σου χρώμα με λίγη διαφάνεια, αντί για μουντό γκρι */
+  color: #3f51b5;
+  opacity: 0.8;
+  font-size: 15px;
+  margin: 0;
+  font-weight: 600;
+}
+
+
+/* ==========================================================================
+   PLATFORM SHOWCASE FLOW (Εναλλακτικό: "Fan-Out" Stack)
+   ========================================================================== */
+.platform-showcase-flow {
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.showcase-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.showcase-header h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #3f51b5;
+  letter-spacing: 2px;
+  margin: 0 0 10px 0;
+}
+
+.showcase-header p {
+  font-size: 22px;
+  color: #475569;
+  margin: 0;
+}
+
+.screens-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Κοινά στυλ: Όλες οι οθόνες έχουν το ίδιο μέγεθος σε αυτή την εκδοχή */
+.screen-wrapper {
+  position: absolute;
+  width: 750px;
+  height: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+  border: 4px solid rgba(255, 255, 255, 1);
+  background: #f8fafc;
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+}
+
+.screen-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* --- ΑΡΧΙΚΗ ΚΑΤΑΣΤΑΣΗ (Στοιβαγμένα σαν τράπουλα) --- */
+.center-screen {
+  z-index: 3;
+  transform: translateY(0) scale(1);
+}
+
+.left-screen {
+  z-index: 2;
+  /* Κρύβεται ελαφρώς πίσω αριστερά και κάτω */
+  transform: translateX(-40px) translateY(15px) rotate(-3deg) scale(0.95);
+}
+
+.right-screen {
+  z-index: 1;
+  /* Κρύβεται ελαφρώς πίσω δεξιά και κάτω */
+  transform: translateX(40px) translateY(15px) rotate(3deg) scale(0.95);
+}
+
+/* --- HOVER ΣΤΟ CONTAINER (Η Τράπουλα "Ανοίγει") --- */
+.screens-container:hover .center-screen {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 40px 80px rgba(15, 23, 42, 0.15);
+}
+
+.screens-container:hover .left-screen {
+  /* Ανοίγει τέρμα αριστερά */
+  transform: translateX(-350px) translateY(10px) rotate(-8deg) scale(0.9);
+  opacity: 0.7; /* Γίνεται λίγο αχνό για να δώσει έμφαση στο κέντρο */
+}
+
+.screens-container:hover .right-screen {
+  /* Ανοίγει τέρμα δεξιά */
+  transform: translateX(350px) translateY(10px) rotate(8deg) scale(0.9);
+  opacity: 0.7;
+}
+
+/* --- HOVER ΣΕ ΣΥΓΚΕΚΡΙΜΕΝΗ ΚΑΡΤΑ (Έρχεται Μπροστά & Ισιώνει) --- */
+.screens-container:hover .left-screen:hover {
+  z-index: 10; /* Έρχεται πάνω από όλα */
+  opacity: 1;
+  /* Ισιώνει τις μοίρες (rotate: 0) και έρχεται πιο μπροστά */
+  transform: translateX(-380px) translateY(-10px) rotate(0deg) scale(1);
+  box-shadow: 0 40px 80px rgba(15, 23, 42, 0.25);
+}
+
+.screens-container:hover .right-screen:hover {
+  z-index: 10;
+  opacity: 1;
+  transform: translateX(380px) translateY(-10px) rotate(0deg) scale(1);
+  box-shadow: 0 40px 80px rgba(15, 23, 42, 0.25);
+}
+
+.screens-container:hover .center-screen:hover {
+  z-index: 10;
+  transform: translateY(-25px) scale(1.1);
+  box-shadow: 0 40px 80px rgba(15, 23, 42, 0.25);
+}
+
+
+/* ==========================================================================
+   FULLSCREEN LIGHTBOX & ZOOM
+   ========================================================================== */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.95); /* Σκούρο μπλε-γκρι */
+  backdrop-filter: blur(10px); /* Γυάλινο εφέ στο φόντο */
+  z-index: 99999; /* Πάνω από όλα τα στοιχεία */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100000;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.lightbox-close mat-icon { font-size: 28px; width: 28px; height: 28px; }
+
+.lightbox-content {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto; /* Επιτρέπει το scroll αν η εικόνα μεγαλώσει πολύ */
+}
+
+/* Η Εικόνα μέσα στο Lightbox */
+.lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  cursor: zoom-in; /* Ο κέρσορας γίνεται μεγεθυντικός φακός */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: center center;
+}
+
+/* Όταν κάνεις κλικ και ενεργοποιείται το Zoom */
+.lightbox-img.zoomed {
+  transform: scale(1.8); /* Μεγαλώνει 80% */
+  cursor: zoom-out; /* Ο κέρσορας αλλάζει για να δείξει ότι θα μικρύνει */
+}
+
+/* Responsive για Κινητά (Μικραίνουμε το κουμπί κλεισίματος για να μη πιάνει χώρο) */
+@media (max-width: 768px) {
+  .lightbox-close {
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+  .lightbox-img.zoomed {
+    transform: scale(2); /* Στα κινητά ίσως θέλει λίγο παραπάνω ζουμ για να διαβαστούν τα γράμματα */
+  }
+}
+
+/* ==========================================================================
+   FINAL CTA BUTTON WRAPPER
+   ========================================================================== */
+.final-cta-wrapper {
+  text-align: center; /* Κεντράρει το κουμπί χωρίς να το τεντώνει! */
+  margin-top: 10px;   /* Αφήνει τον απαραίτητο αέρα από τις φωτογραφίες */
+  margin-bottom: 20px;
+  width: 100%;
+}

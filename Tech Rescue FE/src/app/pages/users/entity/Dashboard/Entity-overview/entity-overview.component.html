@@ -1,0 +1,119 @@
+<div class="page-container">
+
+  <div class="header-row">
+    <div class="title-group">
+      <h2>Χαίρετε, {{ entityName }}! 👋</h2>
+      <p class="subtitle">
+        Συνδεδεμένος ως: <strong>{{entityName}}</strong>  | Τελευταία δραστηριότητα:  <strong> {{ today | date:'dd.MM.yy' }}</strong>
+      </p>
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" routerLink="/entity/donations">
+        <mat-icon>search</mat-icon> Αναζήτηση Δωρεών
+      </button>
+    </div>
+  </div>
+
+  <div class="loading-spinner" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div class="stats-grid" *ngIf="!isLoading">
+    <div class="stat-card blue">
+      <div class="stat-info">
+        <h3>{{ stats.receivedDonations }}</h3>
+        <p>ΟΛΟΚΛΗΡΩΜΕΝΕΣ</p>
+      </div>
+      <div class="stat-icon bg-blue"><mat-icon>handshake</mat-icon></div>
+    </div>
+
+    <div class="stat-card orange">
+      <div class="stat-info">
+        <h3>{{ stats.pendingPickups }}</h3>
+        <p>ΠΡΟΣ ΠΑΡΑΛΑΒΗ</p>
+      </div>
+      <div class="stat-icon bg-orange"><mat-icon>local_shipping</mat-icon></div>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-info">
+        <h3>{{ stats.totalItemsImpact }}</h3>
+        <p>ΤΕΜΑΧΙΑ IMPACT</p>
+      </div>
+      <div class="stat-icon bg-green"><mat-icon>volunteer_activism</mat-icon></div>
+    </div>
+
+    <div class="stat-card purple">
+      <div class="stat-info">
+        <h3>{{ stats.newAvailable }}</h3>
+        <p>ΝΕΕΣ ΔΙΑΘΕΣΙΜΕΣ</p>
+      </div>
+      <div class="stat-icon bg-purple"><mat-icon>new_releases</mat-icon></div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+
+    <div class="table-container main-content">
+      <div class="card-header">
+        <h3>Πρόσφατες Δωρεές (Δεσμευμένες)</h3>
+        <button mat-button color="primary" routerLink="/entity/donations">Προβολή Όλων</button>
+      </div>
+
+      <div class="activity-feed" *ngIf="recentDonations.length > 0">
+        <div class="feed-item" *ngFor="let d of recentDonations">
+
+          <div class="item-left">
+            <div class="item-icon bg-blue">
+              <mat-icon>inventory_2</mat-icon>
+            </div>
+            <div class="item-text">
+              <span class="item-title">{{ d.producer?.fullName || 'Άγνωστος Παραγωγός' }}</span>
+              <span class="item-desc">Δέσμευση: {{ d.createdAt | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+
+          <div class="item-status">
+            <span class="status-pill active">{{ d.status?.name || 'Εκκρεμεί' }}</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="empty-placeholder" *ngIf="recentDonations.length === 0">
+        <div class="placeholder-icon"><mat-icon>history</mat-icon></div>
+        <p>Δεν υπάρχουν πρόσφατες ολοκληρωμένες δωρεές.</p>
+      </div>
+    </div>
+
+    <div class="table-container profile-sidebar">
+      <div class="profile-header">
+        <div class="avatar-circle">
+          <mat-icon>front_hand</mat-icon>
+        </div>
+        <h4>{{ entityName }}</h4>
+        <span class="role-badge">Verified Organization</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="profile-details">
+        <div class="contact-row">
+          <mat-icon>email</mat-icon>
+          <span>{{ entityEmail }}</span>
+        </div>
+
+        <div class="info-note">
+          <mat-icon>info</mat-icon>
+          <p>Οι δωρεές που αποδέχεστε δεσμεύονται για 48 ώρες έως την παραλαβή.</p>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button mat-stroked-button color="primary" routerLink="/entity/profile">
+          <mat-icon style="margin-right: 8px;">settings</mat-icon> Ρυθμίσεις Φορέα
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

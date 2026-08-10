@@ -1,0 +1,33 @@
+.table-header, .table-row {
+  display: grid;
+  /* 3 ίσες στήλες */
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 1. Αριστερή Στήλη */
+.col-main {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* 2. Μεσαία Στήλη (Κέντρο) */
+.col-status {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 3. Δεξιά Στήλη (Τέρμα δεξιά) */
+.col-actions {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+  gap: 4px; /* Απόσταση μεταξύ των buttons */
+}
+
+/* Headers */
+.table-header .col-status { text-align: center; }
+.table-header .col-actions { text-align: right; }

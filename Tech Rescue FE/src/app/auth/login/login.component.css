@@ -1,0 +1,325 @@
+:host {
+  display: block;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.login-page-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* =========================
+   LEFT SIDE (SHOWCASE)
+   ========================= */
+.showcase-side {
+  position: relative;
+  overflow: hidden;
+  flex: 1.2;
+  /*background: linear-gradient(135deg, #1E3C72 0%, #2a5298 100%);*/
+  background: linear-gradient(50deg, #5162c4 5%, #3f51b5 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 60px;
+}
+
+/* ==========================================================================
+   FLOATING ICONS (BASE STATE)
+   ========================================================================== */
+.floating-icons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.f-icon {
+  position: absolute;
+  display: block !important;
+  color: rgba(255, 255, 255, 0.12) !important;
+  pointer-events: auto !important;
+  cursor: pointer;
+  /* Το ΒΑΣΙΚΟ animation που τα κρατάει ζωντανά */
+  animation: infinite ease-in-out;
+}
+
+/* Δίνουμε σε κάθε ομάδα διαφορετική πορεία για την ήρεμη κατάσταση */
+.i1, .i5, .i9, .i13 { animation-name: float-base-1; } /* Βγήκε το i17 */
+.i2, .i6, .i10, .i14, .i17 { animation-name: float-base-2; } /* Μπήκε το i17 εδώ */
+.i3, .i7, .i11, .i15, .i18, .i19 { animation-name: float-base-3; }
+.i4, .i8, .i12, .i16, .i20 { animation-name: float-base-4; }
+
+/* Ήρεμη κίνηση 1: Πάνω και Δεξιά */
+@keyframes float-base-1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(25px, -35px) rotate(12deg); }
+}
+
+/* Ήρεμη κίνηση 2: Κάτω και Αριστερά */
+@keyframes float-base-2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(-30px, 20px) rotate(-10deg); }
+}
+
+/* Ήρεμη κίνηση 3: Πάνω και Αριστερά */
+@keyframes float-base-3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(-20px, -30px) rotate(-15deg); }
+}
+
+/* Ήρεμη κίνηση 4: Κάτω και Δεξιά */
+@keyframes float-base-4 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(35px, 25px) rotate(10deg); }
+}
+
+/* ==========================================================================
+   MULTI-DIRECTIONAL WANDERING (ON HOVER)
+   ========================================================================== */
+
+.f-icon.wandering {
+  color: rgba(255, 255, 255, 0.6) !important;
+  z-index: 100;
+}
+
+/* --- ΟΜΑΔΑ 1: Πάνω Αριστερά (Top-Left) --- */
+.i1  { top: 8%;   left: 10%;  font-size: 75px;  width: 75px;  height: 75px;  animation-duration: 9s; }
+.i5  { top: 35%;  left: 5%;   font-size: 80px;  width: 80px;  height: 80px;  animation-duration: 13s; animation-delay: 1s; }
+.i11 { top: 20%;  left: 28%;  font-size: 80px;  width: 80px;  height: 80px;  animation-duration: 11s; animation-delay: 0.5s; }
+.i13 { top: 5%;   left: 45%;  font-size: 60px;  width: 60px;  height: 60px;  animation-duration: 11s; animation-delay: 2.5s; }
+
+
+/* --- ΟΜΑΔΑ 2: Πάνω Δεξιά (Top-Right) --- */
+.i2  { top: 12%;  left: 85%;  font-size: 55px;  width: 55px;  height: 55px;  animation-duration: 10s; animation-delay: 1s; }
+.i7  { top: 8%;   left: 65%;  font-size: 50px;  width: 50px;  height: 50px;  animation-duration: 7s; }
+.i9  { top: 38%;  left: 78%;  font-size: 55px;  width: 55px;  height: 55px;  animation-duration: 9s;  animation-delay: 2s; }
+.i14 { top: 48%;  left: 88%;  font-size: 75px;  width: 75px;  height: 75px;  animation-duration: 9s;  animation-delay: 0.8s; }
+/* Το Ramen μεταφέρθηκε εδώ: */
+.i17 { top: 22%;  left: 70%;  font-size: 45px;  width: 45px;  height: 45px;  animation-duration: 8s;  animation-delay: 1.8s; }
+
+/* --- ΟΜΑΔΑ 3: Κάτω Αριστερά (Bottom-Left) --- */
+.i3  { top: 85%;  left: 12%;  font-size: 85px;  width: 85px;  height: 85px;  animation-duration: 11s; animation-delay: 1.5s; }
+.i8  { top: 88%;  left: 35%;  font-size: 70px;  width: 70px;  height: 70px;  animation-duration: 12s; }
+.i10 { top: 65%;  left: 25%;  font-size: 50px;  width: 50px;  height: 50px;  animation-duration: 10s; }
+.i15 { top: 55%;  left: 8%;   font-size: 50px;  width: 50px;  height: 50px;  animation-duration: 12s; animation-delay: 1.2s; }
+.i18 { top: 90%;  left: 8%;   font-size: 65px;  width: 65px;  height: 65px;  animation-duration: 13s; animation-delay: 0.5s; }
+.i19 { top: 75%;  left: 45%;  font-size: 55px;  width: 55px;  height: 55px;  animation-duration: 9s;  animation-delay: 2.2s; }
+
+/* --- ΟΜΑΔΑ 4: Κάτω Δεξιά (Bottom-Right) --- */
+.i4  { top: 82%;  left: 85%;  font-size: 65px;  width: 65px;  height: 65px;  animation-duration: 8s; }
+.i6  { top: 58%;  left: 88%;  font-size: 60px;  width: 60px;  height: 60px;  animation-duration: 10s; animation-delay: 0.5s; }
+.i12 { top: 68%;  left: 70%;  font-size: 65px;  width: 65px;  height: 65px;  animation-duration: 9s;  animation-delay: 1s; }
+.i16 { top: 88%;  left: 58%;  font-size: 80px;  width: 80px;  height: 80px;  animation-duration: 10s; animation-delay: 3s; }
+.i20 { top: 85%;  left: 75%;  font-size: 70px;  width: 70px;  height: 70px;  animation-duration: 11s; animation-delay: 1.5s; }
+
+
+/* ==========================================================================
+   MULTI-DIRECTIONAL WANDERING (ΕΝΗΜΕΡΩΜΕΝΕΣ ΟΜΑΔΕΣ ΓΙΑ ΤΟ ΝΕΟ GRID)
+   ========================================================================== */
+
+/* Τα Πάνω-Αριστερά εικονίδια -> Ταξιδεύουν Δεξιά & Κάτω */
+.i1.wandering, .i5.wandering, .i11.wandering, .i13.wandering { animation: float-wide-1 10s 1 linear !important; }
+
+/* Τα Πάνω-Δεξιά εικονίδια -> Ταξιδεύουν Αριστερά & Κάτω (το .i17 ήρθε εδώ) */
+.i2.wandering, .i7.wandering, .i9.wandering, .i14.wandering, .i17.wandering { animation: float-wide-2 10s 1 linear !important; }
+
+/* Τα Κάτω-Αριστερά εικονίδια -> Ταξιδεύουν Δεξιά & Πάνω */
+.i3.wandering, .i8.wandering, .i10.wandering, .i15.wandering, .i18.wandering, .i19.wandering { animation: float-wide-3 10s 1 linear !important; }
+
+/* Τα Κάτω-Δεξιά εικονίδια -> Ταξιδεύουν Αριστερά & Πάνω */
+.i4.wandering, .i6.wandering, .i12.wandering, .i16.wandering, .i20.wandering { animation: float-wide-4 10s 1 linear !important; }
+
+/* =========================
+   ΤΑ 4 "ΕΣΩΤΕΡΙΚΑ" ΜΟΝΟΠΑΤΙΑ
+   ========================= */
+
+/* ΜΟΝΟΠΑΤΙ 1: Προς Δεξιά και Κάτω (+X, +Y) */
+@keyframes float-wide-1 {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+  25%  { transform: translate(180px, 120px) rotate(30deg) scale(1.4); }
+  50%  { transform: translate(280px, 220px) rotate(60deg) scale(1.2); }
+  75%  { transform: translate(140px, 100px) rotate(20deg) scale(1.3); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+}
+
+/* ΜΟΝΟΠΑΤΙ 2: Προς Αριστερά και Κάτω (-X, +Y) */
+@keyframes float-wide-2 {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+  25%  { transform: translate(-180px, 120px) rotate(-30deg) scale(1.4); }
+  50%  { transform: translate(-280px, 220px) rotate(-60deg) scale(1.2); }
+  75%  { transform: translate(-140px, 100px) rotate(-20deg) scale(1.3); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+}
+
+/* ΜΟΝΟΠΑΤΙ 3: Προς Δεξιά και Πάνω (+X, -Y) */
+@keyframes float-wide-3 {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+  25%  { transform: translate(180px, -120px) rotate(30deg) scale(1.4); }
+  50%  { transform: translate(280px, -220px) rotate(60deg) scale(1.2); }
+  75%  { transform: translate(140px, -100px) rotate(20deg) scale(1.3); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+}
+
+/* ΜΟΝΟΠΑΤΙ 4: Προς Αριστερά και Πάνω (-X, -Y) */
+@keyframes float-wide-4 {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+  25%  { transform: translate(-180px, -120px) rotate(-30deg) scale(1.4); }
+  50%  { transform: translate(-280px, -220px) rotate(-60deg) scale(1.2); }
+  75%  { transform: translate(-140px, -100px) rotate(-20deg) scale(1.3); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+}
+
+/* ==========================================================================
+   SHOWCASE CONTENT & LOGIN FORM (REMAINDER)
+   ========================================================================== */
+
+.showcase-content {
+  position: relative;
+  z-index: 2;
+  max-width: 500px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 60px;
+}
+
+.main-logo-icon { font-size: 48px; width: 48px; height: 48px; color: #fff; }
+.logo-area h1 { font-size: 28px; font-weight: 800; margin: 0; letter-spacing: 2px; }
+
+.showcase-items { display: flex; flex-direction: column; gap: 40px; }
+
+.s-item { display: flex; align-items: flex-start; gap: 20px; }
+.s-item mat-icon {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 32px; width: 32px; height: 32px;
+}
+.s-item h3 { margin: 0 0 5px; font-size: 18px; font-weight: 700; color: #fff; }
+.s-item p { margin: 0; color: rgba(255, 255, 255, 0.7); line-height: 1.5; }
+
+/* =========================
+   RIGHT SIDE (LOGIN)
+   ========================= */
+.login-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  position: relative;
+}
+
+.login-card-wrapper {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  text-align: center;
+}
+
+.login-card-wrapper h1 { font-size: 32px; font-weight: 800; color: #1e293b; margin-bottom: 10px; }
+.mat-subheading-1 { color: #64748b; margin-bottom: 40px; }
+
+.full-width { width: 100%; margin-bottom: 10px; }
+
+.login-btn {
+  width: 100%;
+  height: 50px !important;
+  margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+  .showcase-side { display: none; }
+  .login-side { flex: 1; }
+}
+
+/* Το νέο κουμπί επιστροφής (Πάνω Δεξιά) */
+.back-to-home-btn {
+  position: absolute !important;
+  top: 30px;
+  right: 30px; /* Αλλάξαμε το left σε right */
+  color: #64748b;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px !important; /* Μεγαλύτερα γράμματα (συνήθως είναι 14px) */
+  width: 32px !important;     /* Πρέπει να ακολουθεί το font-size */
+  height: 32px !important;
+  padding: 0 24px !important; /* Περισσότερος αέρας αριστερά-δεξιά */
+
+  /*gap: 12px;*/
+  border-radius: 50px;
+  /*padding: 0 16px;*/
+}
+
+/*.back-to-home-btn:hover {*/
+/*  color: #3f51b5;*/
+/*  background-color: rgba(63, 81, 181, 0.05);*/
+/*}*/
+
+
+/* Βεβαιωνόμαστε ότι και το εικονίδιο παίρνει το ίδιο χρώμα */
+.back-to-home-btn mat-icon {
+  color: #3f51b5 !important;
+  font-size: 25px;
+}
+
+/* Στο hover βάζουμε ένα πολύ απαλό φόντο για να φαίνεται ότι πατιέται */
+.back-to-home-btn:hover {
+  background-color: rgba(63, 81, 181, 0.08) !important;
+}
+
+
+
+/* ==========================================================================
+   ERROR ALERTS (Μηνύματα Σφάλματος)
+   ========================================================================== */
+.mat-alert {
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  text-align: left;
+  font-size: 14px;
+  animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.mat-alert-danger {
+  background-color: #fef2f2; /* Πολύ απαλό κόκκινο φόντο */
+  border: 1px solid #fca5a5; /* Απαλό κόκκινο περίγραμμα */
+  color: #dc2626; /* Έντονα κόκκινα γράμματα */
+}
+
+.mat-alert-danger strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.mat-alert-danger ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.mat-alert-danger li {
+  margin-bottom: 4px;
+}
+
+/* MICRO-INTERACTION: Ένα μικρό "κούνημα" όταν εμφανίζεται το σφάλμα (προαιρετικό αλλά ωραίο!) */
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}

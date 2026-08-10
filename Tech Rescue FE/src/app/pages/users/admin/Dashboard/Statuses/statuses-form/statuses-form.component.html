@@ -1,0 +1,112 @@
+<form [formGroup]="statusForm" (ngSubmit)="onSubmit()" class="edit-layout-container">
+
+  <div class="main-content-area">
+    <div class="main-form-card">
+
+      <div class="card-header">
+        <div class="title-group">
+          <div class="icon-header">
+            <mat-icon>{{ editData ? 'edit' : 'add_circle' }}</mat-icon>
+          </div>
+          <div>
+            <h2>{{ editData ? 'Επεξεργασία' : 'Νέα' }} Κατάσταση</h2>
+            <p class="subtitle">Ορισμός κατάστασης συστήματος</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-content">
+
+        <h3 class="section-title">Βασικες Πληροφοριες</h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Όνομα Κατάστασης</mat-label>
+            <input matInput formControlName="name" placeholder="π.χ. In Transit">
+            <mat-icon matSuffix>label</mat-icon>
+            <mat-error *ngIf="statusForm.get('name')?.hasError('required')">
+              Το όνομα είναι υποχρεωτικό
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Περιγραφή</mat-label>
+            <textarea matInput formControlName="description" rows="3" placeholder="Σύντομη περιγραφή..."></textarea>
+            <mat-error *ngIf="statusForm.get('description')?.hasError('required')">
+              Η περιγραφή είναι υποχρεωτική
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-divider style="margin: 24px 0;"></mat-divider>
+
+        <h3 class="section-title">Εσωτερικες Σημειωσεις</h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Σημείωση (Note)</mat-label>
+            <textarea matInput formControlName="note" rows="3" placeholder="Εσωτερική σημείωση (δεν είναι ορατή στους χρήστες)..."></textarea>
+            <mat-icon matSuffix>lock</mat-icon>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="required-note">
+        <span class="asterisk">*</span> Τα πεδία με αστερίσκο είναι υποχρεωτικά
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sidebar-area">
+
+    <div class="control-card">
+      <div class="card-hero-header"
+           [class.bg-active]="statusForm.get('active')?.value"
+           [class.bg-inactive]="!statusForm.get('active')?.value">
+        <mat-icon class="hero-icon">
+          {{ statusForm.get('active')?.value ? 'check_circle' : 'do_not_disturb_on' }}
+        </mat-icon>
+      </div>
+
+      <div class="card-body-centered">
+        <h2 class="status-title">
+          {{ statusForm.get('active')?.value ? 'Ενεργή' : 'Ανενεργή' }}
+        </h2>
+        <p class="status-subtitle">Κατάσταση Συστήματος</p>
+
+        <mat-divider style="width: 100%; margin: 24px 0;"></mat-divider>
+
+        <div class="toggle-section">
+          <span class="toggle-label">Ενεργοποίηση</span>
+          <mat-slide-toggle color="primary" formControlName="active"></mat-slide-toggle>
+        </div>
+
+        <p class="helper-text">
+          {{ statusForm.get('active')?.value
+          ? 'Η κατάσταση είναι διαθέσιμη για χρήση.'
+          : 'Η κατάσταση έχει απενεργοποιηθεί.' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="actions-card">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!statusForm.valid || isLoading" class="full-btn">
+        <mat-icon style="margin-right: 8px;">save</mat-icon>
+        {{ editData ? 'Ενημέρωση' : 'Δημιουργία' }}
+      </button>
+
+      <button mat-button type="button" (click)="onCancel()" class="full-btn secondary">
+        Ακύρωση
+      </button>
+
+      <button mat-button type="button" (click)="resetForm()" class="reset-link">
+        Καθαρισμός Φόρμας
+      </button>
+    </div>
+
+  </div>
+
+</form>

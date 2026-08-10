@@ -1,0 +1,109 @@
+<div class="sidenav-wrapper">
+
+  <div class="logo">
+    <mat-icon>
+      {{ isAdmin ? 'admin_panel_settings' : (isProducer ? 'storefront' : 'front_hand') }}
+    </mat-icon>
+
+    <h3>
+      {{ isAdmin ? 'Admin Panel' : (isProducer ? 'Producer Panel' : 'Entity Panel') }}
+    </h3>
+  </div>
+
+  <mat-nav-list>
+
+    <ng-container *ngIf="isAdmin">
+
+      <a mat-list-item routerLink="/admin/overview" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>dashboard</mat-icon>
+        <span class="nav-label">Overview</span>
+      </a>
+
+      <div class="section-header">Operations</div>
+      <a mat-list-item routerLink="/admin/donations" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="nav-label">Donations</span>
+      </a>
+
+      <div class="section-header">Users</div>
+      <a mat-list-item routerLink="/admin/producers" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>agriculture</mat-icon>
+        <span class="nav-label">Producers</span>
+      </a>
+      <a mat-list-item routerLink="/admin/entities" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>front_hand</mat-icon>
+        <span class="nav-label">Entities</span>
+      </a>
+      <a mat-list-item routerLink="/admin/administrators" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>group</mat-icon>
+        <span class="nav-label">Administrators</span>
+      </a>
+
+      <div class="section-header">Product Settings</div>
+      <a mat-list-item routerLink="/admin/categories" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>category</mat-icon>
+        <span class="nav-label">Categories</span>
+      </a>
+
+      <a mat-list-item routerLink="/admin/formats" routerLinkActive="active-link" class="nav-item">
+        <mat-icon fontSet="material-symbols-outlined" >package_2</mat-icon>
+        <span class="nav-label">Formats</span>
+      </a>
+
+      <a mat-list-item routerLink="/admin/statuses" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>flag</mat-icon>
+        <span class="nav-label">Statuses</span>
+      </a>
+      <a mat-list-item routerLink="/admin/types" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>layers</mat-icon>
+        <span class="nav-label">Types</span>
+      </a>
+    </ng-container>
+
+
+    <ng-container *ngIf="isProducer">
+
+      <a mat-list-item routerLink="/producer/overview" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>dashboard</mat-icon>
+        <span class="nav-label">Overview</span>
+      </a>
+
+      <div class="section-header">My Business</div>
+
+      <a mat-list-item routerLink="/producer/donations" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>volunteer_activism</mat-icon>
+        <span class="nav-label">Donations</span>
+      </a>
+
+<!--      <a mat-list-item routerLink="/producer/inventory" routerLinkActive="active-link" class="nav-item">-->
+<!--        <mat-icon>inventory_2</mat-icon>-->
+<!--        <span class="nav-label">My Inventory</span>-->
+<!--      </a>-->
+
+<!--      <div class="section-header">Account</div>-->
+
+<!--      <a mat-list-item routerLink="/producer/profile" routerLinkActive="active-link" class="nav-item">-->
+<!--        <mat-icon>person</mat-icon>-->
+<!--        <span class="nav-label">Profile</span>-->
+<!--      </a>-->
+
+    </ng-container>
+
+    <ng-container *ngIf="isEntity">
+      <a mat-list-item routerLink="/entity/overview" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>dashboard</mat-icon>
+        <span class="nav-label">Overview</span>
+      </a>
+
+      <div class="section-header"> Donations</div>
+
+      <a mat-list-item routerLink="/entity/donations" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>volunteer_activism</mat-icon>
+        <span class="nav-label"> Available Donations </span>
+      </a>
+
+    </ng-container>
+
+  </mat-nav-list>
+
+</div>

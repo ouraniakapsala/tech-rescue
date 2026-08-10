@@ -1,0 +1,95 @@
+<div class="login-page-wrapper">
+
+  <div class="showcase-side">
+    <div class="floating-icons">
+      <mat-icon class="f-icon i1" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">apple</mat-icon>
+      <mat-icon class="f-icon i2" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">bakery_dining</mat-icon>
+      <mat-icon class="f-icon i3" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">local_milk</mat-icon>
+      <mat-icon class="f-icon i4" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">egg</mat-icon>
+      <mat-icon class="f-icon i5" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">shopping_basket</mat-icon>
+      <mat-icon class="f-icon i6" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">nutrition</mat-icon>
+      <mat-icon class="f-icon i7" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">eco</mat-icon>
+      <mat-icon class="f-icon i8" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">agriculture</mat-icon>
+      <mat-icon class="f-icon i9" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">set_meal</mat-icon>
+      <mat-icon class="f-icon i10" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">icecream</mat-icon>
+      <mat-icon class="f-icon i11" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">liquor</mat-icon>
+      <mat-icon class="f-icon i12" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">restaurant</mat-icon>
+
+      <mat-icon class="f-icon i13" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">water_drop</mat-icon>
+      <mat-icon class="f-icon i14" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">fastfood</mat-icon>
+      <mat-icon class="f-icon i15" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">local_pizza</mat-icon>
+      <mat-icon class="f-icon i16" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">local_cafe</mat-icon>
+      <mat-icon class="f-icon i17" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">ramen_dining</mat-icon>
+      <mat-icon class="f-icon i18" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">soup_kitchen</mat-icon>
+      <mat-icon class="f-icon i19" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">kebab_dining</mat-icon>
+      <mat-icon class="f-icon i20" (mouseenter)="triggerWander($event)" (animationend)="resetWander($event)">lunch_dining</mat-icon>
+    </div>
+
+    <div class="showcase-content">
+      <div class="logo-area">
+        <mat-icon class="main-logo-icon">volunteer_activism</mat-icon>
+        <h1>ΔΩΡΕΕΣ ΠΡΟΪΟΝΤΩΝ</h1>
+      </div>
+
+      <div class="showcase-items">
+        <div class="s-item">
+          <mat-icon>egg</mat-icon>
+          <div>
+            <h3>ΦΡΕΣΚΑ ΠΡΟΪΟΝΤΑ</h3>
+            <p>Απευθείας από τους παραγωγούς στην κοινότητα.</p>
+          </div>
+        </div>
+
+        <div class="s-item">
+          <mat-icon>local_shipping</mat-icon>
+          <div>
+            <h3>ΑΜΕΣΗ ΔΙΑΘΕΣΗ</h3>
+            <p>Εύκολη διαχείριση και παραλαβή των δωρεών.</p>
+          </div>
+        </div>
+
+        <div class="s-item">
+          <mat-icon>groups</mat-icon>
+          <div>
+            <h3>ΚΟΙΝΩΝΙΚΗ ΠΡΟΣΦΟΡΑ</h3>
+            <p>Στηρίζουμε μαζί όσους έχουν ανάγκη.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-side">
+    <button mat-button color="primary" class="back-to-home-btn" (click)="goToLanding()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="login-card-wrapper">
+      <h1 class="mat-headline">CEI - BOOST</h1>
+      <p class="mat-subheading-1">Καλώς ορίσατε! Συνδεθείτε στο λογαριασμό σας.</p>
+
+      <div *ngIf="errors.length && !submitted" class="mat-alert mat-alert-danger">
+        <strong>Σφάλμα σύνδεσης!</strong>
+        <ul><li *ngFor="let error of errors">{{ error }}</li></ul>
+      </div>
+
+      <form (ngSubmit)="login()" #form="ngForm">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="user.email" name="email" required #email="ngModel">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Κωδικός Πρόσβασης</mat-label>
+          <input matInput type="password" [(ngModel)]="user.password" name="password" required #password="ngModel">
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="submitted || form.invalid" class="login-btn">
+          ΕΙΣΟΔΟΣ
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>

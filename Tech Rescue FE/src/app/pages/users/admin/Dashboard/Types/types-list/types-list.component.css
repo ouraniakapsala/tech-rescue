@@ -1,0 +1,37 @@
+/* Ορισμός 4 στηλών: 2fr (Όνομα) | 1fr (Κατηγορία) | 1fr (Κατάσταση) | 120px (Ενέργειες) */
+.table-header, .table-row {
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr 0.7fr 150px;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Ευθυγράμμιση για τις μεσαίες στήλες */
+.col-dims, .col-status {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Ευθυγράμμιση για τις ενέργειες */
+.col-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+/* Headers alignment */
+.table-header .col-dims, .table-header .col-status { text-align: center; }
+.table-header .col-actions { text-align: right; }
+
+/* Τοπικό στυλ για το badge της κατηγορίας */
+.dim-badge {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.dim-empty { color: #cbd5e1; font-style: italic; }
